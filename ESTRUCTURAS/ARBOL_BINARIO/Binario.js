@@ -1,234 +1,175 @@
-class Nodo {
-    constructor(n) {
-        this.n = n
-        this.siguiente = null
-        this.anterior = null
-    }
-}
-
-class ListaDobleCircular{
-    constructor() {
-        this.primero = null
-        this.ultimo = null
-        this.tam=0
-    }
-
-    add(digito) {
-        var nuevo = new Nodo(digito)
-
-        if (this.primero==null) {
-            this.primero=nuevo
-            this.primero.siguiente=this.primero
-            this.primero.anterior=this.ultimo
-            this.ultimo=nuevo
-            this.tam++
-        }else{
-            nuevo.anterior=this.ultimo
-            this.ultimo.siguiente=nuevo
-            nuevo.siguiente=this.primero
-            this.ultimo=nuevo
-            this.primero.anterior=this.ultimo
-            this.tam++
-        }
-
-
-    }
-
-    mostrar(){
-        var temporal = this.primero
-        var cont =0;
-        while(cont<this.tam){
-            console.log(temporal.n)
-            temporal = temporal.siguiente
-            cont++;
-        }
-        
-    }
-
-    mostrar_alreves(){
-        
-        var temporal= this.ultimo
-
-        while (temporal!=this.primero) {
-            console.log(temporal.n)
-            temporal=temporal.anterior
-        }
-        console.log(temporal.n)
+class NodoB{
     
+    constructor(valor){
+        
+        this.valor=valor
+        this.izquierdo=this.derecho=null
+        
+    }
+    texto_graphviz(){
+
+        //este si funcionó  :)
+        if (this.izquierdo==null && this.derecho==null) {
+            return this.valor
+        } else {
+            var texto=""
+            if (this.izquierdo!=null) {
+                texto+= this.valor+"->"+this.izquierdo.texto_graphviz()+"\n"
+            }
+
+            if (this.derecho!=null) {
+                texto+=this.valor+"->"+this.derecho.texto_graphviz()+"\n"
+            }
+            return texto
+        }
+
     }
 
+    codigo_interno(){
+        //este tambien funciona :)
+
+        var  texto = ""
+
+        if (this.izquierdo == null && this.derecho == null) {
+            texto+="node"+this.valor+"[label=\""+this.valor+"\"];\n"
+        } else {
+            texto+="node"+this.valor+"[label=\"<C0>|"+this.valor+"|<C1>\"];\n"
+        }
+
+        if (this.izquierdo!=null) {
+            texto+=this.izquierdo.codigo_interno()
+            texto+="node"+this.valor+":C0->node"+this.izquierdo.valor+";\n"
+        }
+
+        if (this.derecho!=null) {
+            texto+=this.derecho.codigo_interno()
+            texto+="node"+this.valor+":C1->node"+this.derecho.valor+";\n"
+        }
+        
+        return texto
+    }
+
+    
     graficar(){
-        
-        
-        var codigodot = "digraph G {\n"
-        codigodot +="node[ style=filled ,color=\"#E1E1A8\", shape=box];";
-        codigodot +="label=\"" + "RECORRIDO INICO A FIN" + "\";\n";
-        var temporal = this.primero
-        var conexiones ="";
-        var nodos ="";
-        var numnodo= 0;
-        var cont =0;
-        while (cont<this.tam) {
-            
-            nodos+=  "N" + numnodo + "[label=\"" + temporal.n + "\" ];\n"
-            if(temporal.siguiente==this.ultimo){
-                var auxnum = numnodo+1
-                conexiones += "N" + numnodo + " -> N" + auxnum + ";\n"
-                
-            }else if(temporal.siguiente != this.primero){
-                var auxnum = numnodo+1
-                conexiones += "N" + numnodo + " -> N" + auxnum + ";\n"
-                conexiones += "N" + auxnum + " -> N" + numnodo + ";\n"
-
-            }else{
-                var auxnum = 0
-                var auxnum2= numnodo-1
-                conexiones += "N" + auxnum + " -> N" + numnodo + ";\n"
-                conexiones += "N" + numnodo + " -> N" + auxnum + ";\n"
-                conexiones += "N" + numnodo + " -> N" + auxnum2 + ";\n"
-            }
-            temporal = temporal.siguiente
-            numnodo++;
-            cont++;  
-                      
-        }
-        
-        codigodot += "//agregando nodos\n"
-        codigodot += nodos+"\n"
-        codigodot += "//agregando conexiones o flechas\n"
-        codigodot += "{rank=same;\n"+conexiones+"\n}\n}"
-        console.log(codigodot)
-        
-        d3.select("#lienzo").graphviz()
-            .width(1800)
-            .height(200)
-            .renderDot(codigodot)
+        var  texto = ""
+        texto+="digraph G { rankdir=TB; "
+        texto+="\n"
+        texto+="node [shape = record, style=filled, fillcolor=seashell2];\n"
+        texto+=this.codigo_interno()
+        texto+="}\n"
+        return console.log(texto)
     }
 
-    graficar_alreves(){
-        
-        
-        var codigodot = "digraph G {\n"
-        codigodot +="node[ style=filled ,color=\"#E1E1A8\", shape=box];";
-        codigodot +="label=\"" + "RECORRIDO FIN A INICIO" + "\";\n";
-        var temporal = this.ultimo
-        var conexiones ="";
-        var nodos ="";
-        var numnodo= 0;
-        var cont =0;
-        while (temporal!=this.primero) {
-            
-            nodos+=  "N" + numnodo + "[label=\"" + temporal.n + "\" ];\n"
-            if(temporal.anterior==this.ultimo){
-                var auxnum = numnodo+1
-                conexiones += "N" + numnodo + " -> N" + auxnum + ";\n"
-                
-            }else if(temporal.anterior != this.primero){
-                var auxnum = numnodo+1
-                conexiones += "N" + numnodo + " -> N" + auxnum + ";\n"
-                conexiones += "N" + auxnum + " -> N" + numnodo + ";\n"
-
-            }
-            temporal = temporal.anterior
-            numnodo++;
-            cont++;  
-                      
-        }
-        nodos+=  "N" + numnodo + "[label=\"" + temporal.n + "\" ];\n"
-        var auxnum = numnodo-1
-        var auxo=0
-        conexiones += "N" + auxnum + " -> N" + numnodo + ";\n"
-        conexiones += "N" + numnodo + " -> N" + auxnum + ";\n"
-
-        conexiones += "N" + numnodo + " -> N" + auxo + ";\n"
-        conexiones += "N" + auxo + " -> N" + numnodo + ";\n"
-
-
-        codigodot += "//agregando nodos\n"
-        codigodot += nodos+"\n"
-        codigodot += "//agregando conexiones o flechas\n"
-        codigodot += "{rank=same;\n"+conexiones+"\n}\n}"
-        console.log(codigodot)
-        
-        d3.select("#lienzo2").graphviz()
-            .width(1800)
-            .height(200)
-            .renderDot(codigodot)
+    graficar2(){
+        var  texto = ""
+        texto+="digraph G { rankdir=TB ; node [shape = record, style=filled, fillcolor=seashell2];\n"
+        texto+=this.texto_graphviz()
+        texto+="}\n"
+        return console.log(texto)
     }
 
-    graficar_doble(){
-        
-        
-        var codigodot = "digraph G {\n"
-        codigodot +="node[ style=filled ,color=\"#E1E1A8\", shape=box];";
-        codigodot +="label=\"" + "DOBLE RECORRIDO" + "\";\n";
-        var temporal = this.primero
-        var conexiones ="";
-        var nodos ="";
-        var numnodo= 0;
-        var cont =0;
-        while (cont<this.tam) {
-            
-            nodos+=  "N" + numnodo + "[label=\"" + temporal.n + "\" ];\n"
-            if(temporal.siguiente==this.ultimo){
-                var auxnum = numnodo+1
-                conexiones += "N" + numnodo + " -> N" + auxnum + ";\n"
-                
-            }else if(temporal.siguiente != this.primero){
-                var auxnum = numnodo+1
-                conexiones += "N" + numnodo + " -> N" + auxnum + ";\n"
-                conexiones += "N" + auxnum + " -> N" + numnodo + ";\n"
 
-            }else{
-                var auxnum = 0
-                var auxnum2= numnodo-1
-                conexiones += "N" + auxnum + " -> N" + numnodo + ";\n"
-                conexiones += "N" + numnodo + " -> N" + auxnum + ";\n"
-                conexiones += "N" + numnodo + " -> N" + auxnum2 + ";\n"
-            }
-            temporal = temporal.siguiente
-            numnodo++;
-            cont++;  
-                      
-        }
-        
-        
-        codigodot += "//agregando nodos\n"
-        codigodot += nodos+"\n"
-        codigodot += "//agregando conexiones o flechas\n"
-        codigodot += "{rank=same;\n"+conexiones+"\n}\n}"
-        console.log(codigodot)
-        
-        d3.select("#lienzo3").graphviz()
-            .width(1800)
-            .height(200)
-            .renderDot(codigodot)
-    }
+
 }
 
-var LDC = new ListaDobleCircular();
-LDC.add(2)
-LDC.add(0)
-LDC.add(1)
-LDC.add(9)
-LDC.add(0)
-LDC.add(4)
-LDC.add(0)
-LDC.add(1)
-LDC.add(3)
+class Arbol_Binario{
+    constructor(){
+        this.raiz=null
+    }
 
-LDC.mostrar()
-LDC.graficar()
-console.log("________________")
-LDC.mostrar_alreves()
-LDC.graficar_alreves()
-LDC.add(2)
-LDC.add(0)
-LDC.add(1)
-LDC.add(9)
-LDC.add(0)
-LDC.add(4)
-LDC.add(0)
-LDC.add(1)
-LDC.add(3)
-LDC.graficar_doble()
+    raiz(){
+        return this.raiz
+    }
+
+    agregar(valor){
+        this.raiz=this.agregar_recursive(valor,this.raiz)
+    }
+
+    agregar_recursive(valor,raiz){
+        //si está vacío
+        if (raiz==null) {
+            return  new NodoB(valor)
+        } else {
+            //Verificar si es mayor o menor
+            if (valor<raiz.valor) {
+                raiz.izquierdo=this.agregar_recursive(valor,raiz.izquierdo)
+            } else {
+                raiz.derecho=this.agregar_recursive(valor,raiz.derecho)
+            }
+        }
+        return raiz
+    }
+
+    pre_orden(){
+        this.pre_order_recursivo(this.raiz)
+    }
+    
+    pre_order_recursivo(raiz){
+        //visitar raiz, izquierda y derecha
+        if (raiz) {
+            console.log("valor :"+ raiz.valor)
+            this.pre_order_recursivo(raiz.izquierdo)
+            this.pre_order_recursivo(raiz.derecho)
+        }
+    }
+
+    inorden(){
+
+        this.inorden_recursivo(this.raiz)
+    }
+
+    inorden_recursivo(raiz){
+        //izquierda -> raiz -> derecha
+        if (raiz) {
+            this.inorden_recursivo(raiz.izquierdo)
+            console.log("valor:"+raiz.valor)
+            this.inorden_recursivo(raiz.derecho)
+        }
+    }
+    post_orden(){
+        this.post_orden_recursivo(this.raiz)
+    }
+
+    post_orden_recursivo(raiz){
+        //izquierdo ->derecho ->raiz
+        if (raiz) {
+            this.post_orden_recursivo(raiz.izquierdo)
+            this.post_orden_recursivo(raiz.derecho)
+            console.log("valor:"+raiz.valor)
+        }
+    }
+
+    obtener_codigo_Graphviz(){
+        return this.raiz.graficar()
+    }
+
+    segundo_graficar(){
+
+        return this.raiz.graficar2()
+    }
+    
+    
+         
+}
+
+
+const arbol_binario = new Arbol_Binario()
+arbol_binario.agregar(7)
+arbol_binario.agregar(8)
+arbol_binario.agregar(5)
+arbol_binario.agregar(4)
+arbol_binario.agregar(6)
+
+console.log("Metodo preorden:\n")
+arbol_binario.pre_orden()
+
+console.log("****************\nMetodo inorden:\n")
+arbol_binario.inorden()
+
+console.log("****************\nMetodo postorden:\n")
+arbol_binario.post_orden()
+
+console.log("__________________ Código de Graphviz __________________\n")
+arbol_binario.segundo_graficar()
+arbol_binario.obtener_codigo_Graphviz()
+
