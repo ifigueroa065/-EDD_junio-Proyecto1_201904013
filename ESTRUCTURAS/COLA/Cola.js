@@ -78,14 +78,34 @@ class Queue {
             .height(500)
             .renderDot(codigodot)
     }
+
+    bubbleSort() {
+        var aux= this.first
+        for (var i = 0; i < this.size; i++) { 
+              for (var j = 0; j < (this.size - i - 1); j++) { 
+                    if(aux.value > aux.next.value) {
+                        var tmp = aux.value; 
+                        aux.value = aux.next.value; 
+                        aux.next.value = tmp; 
+                }
+            }        
+        }
+    }
 }
 
 const quickQueue = new Queue
 
-quickQueue.encolar("value1")
-quickQueue.encolar("value2")
-quickQueue.encolar("value3")
+quickQueue.encolar("MarthaCerda")
+quickQueue.encolar("JohnleCarré")
+quickQueue.encolar("AnaFrank")
+quickQueue.encolar("PauloCoelho")
+quickQueue.encolar("AliceKellen")
+quickQueue.encolar("StephenieMeyer")
 
+
+quickQueue.mostrar()
+console.log("_____________________ BUBBLE _____________________")
+quickQueue.bubbleSort()
 quickQueue.mostrar()
 quickQueue.graficar()
 

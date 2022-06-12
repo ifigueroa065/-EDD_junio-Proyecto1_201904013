@@ -95,6 +95,65 @@ class L_Ortogonal {
 
     }
 
+    graficar(){
+        var codigodot = "digraph G {\n"
+        codigodot +="node[ style=filled ,color=\"#E1E1A8\", shape=box];";
+        codigodot +="label=\"" + "PILA" + "\";\n";
+        var aux = this.cabeza
+        var conexiones ="";
+        var nodos ="";
+        var numnodo= 0;
+        var contcol=1
+        var contfila=1
+        var img = ""
+        
+        
+        
+        while (aux.bot!=null || aux.right!=null) {
+            nodos+=  "N" + numnodo + "[label=\"" + aux.pix + "\" ];\n"
+            
+            
+            
+            if (aux.right!=null) {
+                aux=aux.right
+                contcol++
+                var auxnum = numnodo+1
+                conexiones += "N" + numnodo + " -> N" + auxnum + ";\n"
+                conexiones += "N" + auxnum + " -> N" + numnodo + ";\n"
+                numnodo++
+                
+            } else {
+                contfila++
+                contcol=1
+                //imprimo la fila que leí
+                console.log(img)
+                if (aux.bot!=null) {
+                    img=""
+                    aux=aux.bot
+                    while (aux.left!=null) {
+                        aux=aux.left
+                    }
+                }
+            }
+        }
+        nodos+=  "N" + numnodo + "[label=\"" + aux.pix + "\" ];\n"
+        console.log(img)
+        codigodot += "//agregando nodos\n"
+        codigodot += nodos+"\n"
+        codigodot += "//agregando conexiones o flechas\n"
+        codigodot += "{rank=same;\n"+conexiones+"\n}\n}"
+        console.log(codigodot)
+        
+        d3.select("#lienzo").graphviz()
+            .width(1200)
+            .height(500)
+            .renderDot(codigodot)
+
+
+
+            
+    }
+
 }
 
 const prueba= new L_Ortogonal
@@ -119,3 +178,4 @@ prueba.agregarNodo("#",4)
 prueba.agregarNodo("#",4)  
 
 prueba.mostrarLista()
+prueba.graficar()

@@ -57,7 +57,10 @@ class NodoB{
         texto+="node [shape = record, style=filled, fillcolor=seashell2];\n"
         texto+=this.codigo_interno()
         texto+="}\n"
-        return console.log(texto)
+        d3.select("#lienzo").graphviz()
+            .width(1200)
+            .height(500)
+            .renderDot(texto)
     }
 
     graficar2(){
@@ -154,11 +157,12 @@ class Arbol_Binario{
 
 
 const arbol_binario = new Arbol_Binario()
-arbol_binario.agregar(7)
-arbol_binario.agregar(8)
-arbol_binario.agregar(5)
-arbol_binario.agregar(4)
-arbol_binario.agregar(6)
+arbol_binario.agregar("AnaFrank")
+arbol_binario.agregar("AliceKellen")
+arbol_binario.agregar("JohnleCarré")
+arbol_binario.agregar("StephenieMeyer")
+arbol_binario.agregar("PauloCoelho")
+arbol_binario.agregar("MarthaCerda")
 
 console.log("Metodo preorden:\n")
 arbol_binario.pre_orden()
@@ -170,6 +174,6 @@ console.log("****************\nMetodo postorden:\n")
 arbol_binario.post_orden()
 
 console.log("__________________ Código de Graphviz __________________\n")
-arbol_binario.segundo_graficar()
+
 arbol_binario.obtener_codigo_Graphviz()
 
