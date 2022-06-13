@@ -1,14 +1,99 @@
-const jsonData= require('./TEST/libros.json'); 
-console.log("__________ EL CONTENIDO DEL JSON ES __________")
-console.log(jsonData);
+    document.getElementById("cargar_libs").onclick = loadfile;
+    document.getElementById("cargar_aut").onclick = loadfile1;
+    document.getElementById("cargar_user").onclick = loadfile2;
+    let archivo;
+    window.addEventListener('load',function(){
+        let fileinput = document.getElementById("archivo");
+        fileinput.addEventListener('change',function(event){
+            archivo = event.target.files[0]
+        })
+    })
+    function loadfile(){
+        let reader= new FileReader()
+        reader.readAsText(archivo)
+        reader.addEventListener('load',enviar,false)
 
-console.log("__________ DATOS DEL PRIMER LIBRO __________")
-console.log(jsonData[0].isbm);
-console.log(jsonData[0].nombre_autor);
-console.log(jsonData[0].nombre_libro);
-console.log(jsonData[0].cantidad);
-console.log(jsonData[0].fila);
-console.log(jsonData[0].columna);
-console.log(jsonData[0].paginas);
-console.log(jsonData[0].categoria);
+    }
 
+    function loadfile1(){
+        let reader= new FileReader()
+        reader.readAsText(archivo)
+        reader.addEventListener('load',enviar1,false)
+
+    }
+
+    function loadfile2(){
+        let reader= new FileReader()
+        reader.readAsText(archivo)
+        reader.addEventListener('load',enviar2,false)
+
+    }
+
+    async function enviar(e){
+        var text = e.target.result;
+        var jsonData = JSON.parse(text);
+        var x= document.getElementById("content");
+        x.innerHTML+=text
+        //console.log(text)
+        console.log(jsonData)
+        for (let index = 0; index < jsonData.length; index++) {
+            console.log("__________ DATOS DEL LIBRO "+(index+1)+" __________")
+            console.log(jsonData[index].isbm);
+            console.log(jsonData[index].nombre_autor);
+            console.log(jsonData[index].nombre_libro);
+            console.log(jsonData[index].cantidad);
+            console.log(jsonData[index].fila);
+            console.log(jsonData[index].columna);
+            console.log(jsonData[index].paginas);
+            console.log(jsonData[index].categoria);
+            
+        }
+        
+    }
+
+    async function enviar1(e){
+        var text = e.target.result;
+        var jsonData = JSON.parse(text);
+        var x= document.getElementById("content");
+        x.innerHTML+=text
+        //console.log(text)
+        console.log(jsonData)
+        for (let index = 0; index < jsonData.length; index++) {
+            console.log("__________ DATOS DEL AUTOR "+(index+1)+" __________")
+            console.log(jsonData[index].dpi);
+            console.log(jsonData[index].nombre_autor);
+            console.log(jsonData[index].correo);
+            console.log(jsonData[index].telefono);
+            console.log(jsonData[index].direccion);
+            console.log(jsonData[index].biografia);
+            
+        }
+        
+    }
+
+    async function enviar2(e){
+        var text = e.target.result;
+        var jsonData = JSON.parse(text);
+        var x= document.getElementById("content");
+        x.innerHTML+=text
+        //console.log(text)
+        console.log(jsonData)
+        for (let index = 0; index < jsonData.length; index++) {
+            console.log("__________ DATOS DEL USUARIO "+(index+1)+" __________")
+            console.log(jsonData[index].dpi);
+            console.log(jsonData[index].nombre_completo);
+            console.log(jsonData[index].nombre_usuario);
+            console.log(jsonData[index].correo);
+            console.log(jsonData[index].rol);
+            console.log(jsonData[index].contrasenia);
+            console.log(jsonData[index].telefono);
+            
+        }
+        
+    }
+
+    
+    
+    
+    
+    
