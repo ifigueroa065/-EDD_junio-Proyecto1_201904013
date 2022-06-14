@@ -32,8 +32,8 @@
     async function enviar(e){
         var text = e.target.result;
         var jsonData = JSON.parse(text);
-        var x= document.getElementById("content");
-        x.innerHTML+=text
+        //var x= document.getElementById("content");
+        //x.innerHTML+=text
         //console.log(text)
         console.log(jsonData)
         for (let index = 0; index < jsonData.length; index++) {
@@ -48,14 +48,15 @@
             console.log(jsonData[index].categoria);
             
         }
+        alert("Carga de libros exitosa :)")
         
     }
 
     async function enviar1(e){
         var text = e.target.result;
         var jsonData = JSON.parse(text);
-        var x= document.getElementById("content");
-        x.innerHTML+=text
+        //var x= document.getElementById("content");
+        //x.innerHTML+=text
         //console.log(text)
         console.log(jsonData)
         for (let index = 0; index < jsonData.length; index++) {
@@ -68,14 +69,14 @@
             console.log(jsonData[index].biografia);
             
         }
-        
+        alert("Carga de autores exitosa :)")
     }
 
     async function enviar2(e){
         var text = e.target.result;
         var jsonData = JSON.parse(text);
-        var x= document.getElementById("content");
-        x.innerHTML+=text
+        //var x= document.getElementById("content");
+        //x.innerHTML+=text
         //console.log(text)
         console.log(jsonData)
         for (let index = 0; index < jsonData.length; index++) {
@@ -89,6 +90,7 @@
             console.log(jsonData[index].telefono);
             
         }
+        alert("Carga de usuarios exitosa :)")
         
     }
 

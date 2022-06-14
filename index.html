@@ -30,7 +30,9 @@
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
   <link href="css/styles.css" rel="stylesheet" />
-
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 </head>
 
 <body>
@@ -67,7 +69,7 @@
               
             </ul>
             <div class="user_option">
-              <a href="" class="user_link">
+              <a  class="user_link">
                 <i class="fa fa-user" aria-hidden="true"></i>
               </a>
               
@@ -150,6 +152,31 @@
     </section>
     <!-- end slider section -->
   </div>
+
+    <!-- DIV PRINCIPAL -->
+  
+  <section class="offer_section layout_padding-bottom" id="principal">
+    <div class="offer_container" >
+      <button type="button" onclick="myFunction()" class="btn btn-secondary">OCULTAR</button>
+      <div class="container " id="myDIV">
+        <button type="button" class="btn btn-primary">Primary</button>
+        <button type="button" class="btn btn-secondary">Secondary</button>
+        <button type="button" class="btn btn-success">Success</button>
+        <button type="button" class="btn btn-danger">Danger</button>
+        <button type="button" class="btn btn-warning">Warning</button>
+        <button type="button" class="btn btn-info">Info</button>
+        <button type="button" class="btn btn-light">Light</button>
+        <button type="button" class="btn btn-dark">Dark</button>
+        
+        <button type="button" class="btn btn-link">Link</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- end offer section -->
+
+
+
 
   <!-- DIV HOME -->
   
@@ -466,35 +493,27 @@
 
   <!-- end food section -->
 
-  <!-- about section -->
+  <!-- ADMINISTRADOR section -->
 
-  <section class="about_section layout_padding">
+  <section class="about_section layout_padding" id ="ADMINISTRADOR">
     <div class="container  ">
+      <h1 class="my-5 display-3 fw-bold ls-tight">
+             
+        <span class="text-primary">Administrador</span>
+      </h1>
+      <div >
+        <div class="mb-3">
+            <label for="formFile" class="form-label">Selecciona el archivo a cargar...</label>
+            <input class="form-control" type="file" id="archivo">
+          </div>
 
-      <div class="row">
-        <div class="col-md-6 ">
-          <div class="img-box">
-            <img src="images/about-img.png" alt="">
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="detail-box">
-            <div class="heading_container">
-              <h2>
-                We Are Feane
-              </h2>
-            </div>
-            <p>
-              There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
-              in some form, by injected humour, or randomised words which don't look even slightly believable. If you
-              are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in
-              the middle of text. All
-            </p>
-            <a href="">
-              Read More
-            </a>
-          </div>
-        </div>
+          <center>
+            <button  type="button"  class="btn btn-success" id="cargar_libs">LIBROS </button>
+            <button type="button" class="btn btn-danger" id="cargar_aut">AUTORES</button>
+            <button type="button" class="btn btn-warning" id="cargar_user" >USUARIOS</button>
+
+            
+          </center>
       </div>
     </div>
   </section>
@@ -789,6 +808,21 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
   </script>
   <!-- End Google Map -->
+
+  <script src="Backend/Lecturas/Lecturas.js"></script>
+
+  <script>
+    function myFunction() {
+    var x = document.getElementById("myDIV");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+    }
+
+  </script>
+
 
 </body>
 
