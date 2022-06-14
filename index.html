@@ -11,10 +11,10 @@
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <link rel="shortcut icon" href="images/favicon.png" type="">
+  <link rel="shortcut icon" href="images/icon2.png" type="">
 
   <title> CatsBooks</title>
-
+  
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 
@@ -44,7 +44,7 @@
       <div class="container">
         <nav class="navbar navbar-expand-lg custom_nav-container ">
           <a class="navbar-brand" href="index.html">
-            <span>
+            <span> 
               CatsBooks
             </span>
           </a>
@@ -72,7 +72,7 @@
               </a>
               
               
-              <a href="book.html" class="order_online">
+              <a href="#registro" class="order_online">
                 Registrarse
               </a>
             </div>
@@ -501,74 +501,149 @@
 
   <!-- end about section -->
 
-  <!-- book section -->
+  <!-- LOGIN -->
   <section class="book_section layout_padding" id="login">
-    <div class="container">
-      <div class="heading_container">
-        <h2>
-          Book A Table
-        </h2>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form_container">
-            <form action="">
-              <div>
-                <input type="text" class="form-control" placeholder="Your Name" />
+    
+      <section class="vh-100" style="background-color: #222831;">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-xl-10">
+              <div class="card" style="border-radius: 1rem;">
+                <div class="row g-0">
+                  <div class="col-md-6 col-lg-5 d-none d-md-block">
+                    <img src="images/img9.jpg"
+                      alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+                  </div>
+                  <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                    <div class="card-body p-4 p-lg-5 text-black">
+      
+                      <form>
+      
+                        <div class="d-flex align-items-center mb-3 pb-1">
+                          
+                          <span class="h1 fw-bold mb-0">
+                            <img src="images/icon2.png" width="35">
+                             CatsBooks</span>
+                        </div>
+      
+                        <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Ingresa a tu cuenta </h5>
+      
+                        <div class="form-outline mb-4">
+                          <input type="text" id="form2Example17" class="form-control form-control-lg" />
+                          <label class="form-label" for="form2Example17"> Usuario</label>
+                        </div>
+      
+                        <div class="form-outline mb-4">
+                          <input type="password" id="form2Example27" class="form-control form-control-lg" />
+                          <label class="form-label" for="form2Example27"> Contraseña</label>
+                        </div>
+      
+                        <div class="pt-1 mb-4">
+                          <button class="btn btn-dark btn-lg btn-block" type="button">Iniciar Sesión</button>
+                        </div>
+      
+                       
+                        
+                      </form>
+      
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div>
-                <input type="text" class="form-control" placeholder="Phone Number" />
-              </div>
-              <div>
-                <input type="email" class="form-control" placeholder="Your Email" />
-              </div>
-              <div>
-                <select class="form-control nice-select wide">
-                  <option value="" disabled selected>
-                    How many persons?
-                  </option>
-                  <option value="">
-                    2
-                  </option>
-                  <option value="">
-                    3
-                  </option>
-                  <option value="">
-                    4
-                  </option>
-                  <option value="">
-                    5
-                  </option>
-                </select>
-              </div>
-              <div>
-                <input type="date" class="form-control">
-              </div>
-              <div class="btn_box">
-                <button>
-                  Book Now
-                </button>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="map_container ">
-            <div id="googleMap"></div>
+      </section>
+    
+  </section>
+  <!-- end LOGIN section -->
+
+  <!-- REGISTRO -->
+  <section class="book_section layout_padding" id="registro">
+    
+    <!-- Section: Design Block -->
+<section class="">
+  <!-- Jumbotron -->
+  <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: #222831">
+    <div class="container">
+      <div class="row gx-lg-5 align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <h1 class="my-5 display-3 fw-bold ls-tight">
+             
+            <span class="text-primary">Registro</span>
+          </h1>
+          <p style="color: hsl(217, 10%, 50.8%)">
+            Para tener una nueva experiencia en CatsBooks debes
+            registrarte :)
+          </p>
+        </div>
+
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <div class="card">
+            <div class="card-body py-5 px-md-5">
+              <form>
+                <!-- DPI input -->
+                <div class="form-outline mb-4">
+                  <input type="text" id="form3Example3" class="form-control" />
+                  <label class="form-label" for="form3Example3">DPI</label>
+                </div>
+              
+                
+                <!-- Nombre input -->
+                <div class="form-outline mb-4">
+                  <input type="text" id="form3Example3" class="form-control" />
+                  <label class="form-label" for="form3Example3">Nombre Completo</label>
+                </div>
+                <!-- Nombre de Usuario input -->
+                <div class="form-outline mb-4">
+                  <input type="text" id="form3Example3" class="form-control" />
+                  <label class="form-label" for="form3Example3">Nombre de Usuario</label>
+                </div>
+                <!-- Correo input -->
+                <div class="form-outline mb-4">
+                  <input type="text" id="form3Example3" class="form-control" />
+                  <label class="form-label" for="form3Example3">Correo</label>
+                </div>
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                  <input type="password" id="form3Example4" class="form-control" />
+                  <label class="form-label" for="form3Example4">Password</label>
+                </div>
+                  <!-- Teléfono input -->
+                <div class="form-outline mb-4">
+                  <input type="text" id="form3Example3" class="form-control" />
+                  <label class="form-label" for="form3Example3">Teléfono</label>
+                </div>
+
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block mb-4">
+                  Registrarse
+                </button>
+
+                
+              </form>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-  <!-- end book section -->
-
+  </div>
+  <!-- Jumbotron -->
+</section>
+<!-- Section: Design Block -->
+    </section>
+  
+</section>
+<!-- end REGISTRO section -->
   <!-- client section -->
 
   <section class="client_section layout_padding-bottom">
+    <br>
     <div class="container">
       <div class="heading_container heading_center psudo_white_primary mb_45">
         <h2>
-          TOP 3 COMPRADORES
+          Personas con más libros comprados
         </h2>
       </div>
       <div class="carousel-wrap row ">
