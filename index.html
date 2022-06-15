@@ -37,7 +37,7 @@
 
 <body>
 
-  <div class="hero_area">
+  <div class="hero_area" id="INIT">
     <div class="bg-box">
       <img src="images/img7.jpg" alt="">
     </div>
@@ -45,7 +45,7 @@
     <header class="header_section">
       <div class="container">
         <nav class="navbar navbar-expand-lg custom_nav-container ">
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="#INIT">
             <span> 
               CatsBooks
             </span>
@@ -58,7 +58,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav  mx-auto ">
               <li class="nav-item active">
-                <a class="nav-link" href="index.html">Inicio<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="#INIT">Inicio<span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
                 <a  class="nav-link js-scroll-trigger" href="#home">Libros</a>
@@ -548,12 +548,12 @@
                         <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Ingresa a tu cuenta </h5>
       
                         <div class="form-outline mb-4">
-                          <input type="text" id="form2Example17" class="form-control form-control-lg" />
+                          <input type="text" id="l_usuario" class="form-control form-control-lg" />
                           <label class="form-label" for="form2Example17"> Usuario</label>
                         </div>
       
                         <div class="form-outline mb-4">
-                          <input type="password" id="form2Example27" class="form-control form-control-lg" />
+                          <input type="password" id="l_pass" class="form-control form-control-lg" />
                           <label class="form-label" for="form2Example27"> Contraseña</label>
                         </div>
       
@@ -610,27 +610,27 @@
                 
                 <!-- Nombre input -->
                 <div class="form-outline mb-4">
-                  <input type="text" id="form3Example3" class="form-control" />
+                  <input type="text" id="R_name" class="form-control" />
                   <label class="form-label" for="form3Example3">Nombre Completo</label>
                 </div>
                 <!-- Nombre de Usuario input -->
                 <div class="form-outline mb-4">
-                  <input type="text" id="form3Example3" class="form-control" />
+                  <input type="text" id="R_name_user" class="form-control" />
                   <label class="form-label" for="form3Example3">Nombre de Usuario</label>
                 </div>
                 <!-- Correo input -->
                 <div class="form-outline mb-4">
-                  <input type="text" id="form3Example3" class="form-control" />
+                  <input type="text" id="R_correo" class="form-control" />
                   <label class="form-label" for="form3Example3">Correo</label>
                 </div>
                 <!-- Password input -->
                 <div class="form-outline mb-4">
-                  <input type="password" id="form3Example4" class="form-control" />
+                  <input type="password" id="R_pass" class="form-control" />
                   <label class="form-label" for="form3Example4">Password</label>
                 </div>
                   <!-- Teléfono input -->
                 <div class="form-outline mb-4">
-                  <input type="text" id="form3Example3" class="form-control" />
+                  <input type="text" id="R_tel" class="form-control" />
                   <label class="form-label" for="form3Example3">Teléfono</label>
                 </div>
 
@@ -809,11 +809,12 @@
   </script>
   <!-- End Google Map -->
 
-  <script src="Backend/Lecturas/Lecturas.js"></script>
+  <script src="Backend/Scripts/Lecturas.js"></script>
+  <script src="Backend/Scripts/Binario.js"></script>
 
   <script>
     function myFunction() {
-    var x = document.getElementById("myDIV");
+    var x = document.getElementById("INIT");
     if (x.style.display === "none") {
         x.style.display = "block";
     } else {

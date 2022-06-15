@@ -1,10 +1,11 @@
-    import  Arbol_Binario from "/Backend/Estructuras/ARBOL_BINARIO/Binario.js"
+    
     
     document.getElementById("cargar_libs").onclick = loadfile;
     document.getElementById("cargar_aut").onclick = loadfile1;
     document.getElementById("cargar_user").onclick = loadfile2;
     let archivo;
-    
+
+
     
 
 
