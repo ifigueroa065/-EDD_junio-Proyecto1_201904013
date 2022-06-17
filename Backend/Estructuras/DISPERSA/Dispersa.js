@@ -10,15 +10,13 @@ class NodoM {
         this.x=x
         this.y=y
     }
-    nodo_str(){
-        return "("+str(this.x)+","+str(this.y)+")="+str(this.dato)
-    }
+    
         
 }
 
 class Dispersa{
     constructor() {
-        this.root  = new NodoM(-1,-1,"Root")
+        this.root  = new NodoM(0,0,"Root")
         
     }
 
@@ -51,7 +49,7 @@ class Dispersa{
     //Insertar Cabecera Columna
     crear_columna(x){
         var nodo_col =this.root
-        var nuevo = new NodoM(x,-1,"COL")
+        var nuevo = new NodoM(x,0,"COL")
         var columna= this.insertar_orden_col(nuevo,nodo_col)
         return columna
     }
@@ -97,7 +95,7 @@ class Dispersa{
     //nsertar Cabecera Fila
     crear_fila(y){
         var nodo_fila= this.root
-        var nuevo = new NodoM(-1,y,"Fila")
+        var nuevo = new NodoM(0,y,"Fila")
         var columna = this.insertar_orden_fil(nuevo,nodo_fila)
         return columna
     }
@@ -147,7 +145,7 @@ class Dispersa{
         
         if (NodoFila==null && NodoColumna==null) {
             //Caso 1---No existe fila ni columna
-            console.log("Caso1, ---No existe fila ni columna")
+            //console.log("Caso1, ---No existe fila ni columna")
 
             //crear las cabeceras
             NodoColumna=this.crear_columna(x)
@@ -159,7 +157,7 @@ class Dispersa{
             return
         }else if(NodoFila==null && NodoColumna!=null){
             //Caso 2---No existe Fila, pero si columna
-            console.log("Caso2")
+            //console.log("Caso2")
 
             //crear las cabeceras
             //NodoColumna=this.crear_columna(x)
@@ -171,7 +169,7 @@ class Dispersa{
             return
         }else if(NodoFila!=null && NodoColumna==null){
             //Caso 3---No existe columna, pero si fila
-            console.log("Caso3")
+            //console.log("Caso3")
 
             //crear las cabeceras
             NodoColumna=this.crear_columna(x)
@@ -184,7 +182,7 @@ class Dispersa{
         }else if(NodoFila!=null && NodoColumna!=null){
             //Caso 4 ---  si existe fila y columna
 
-            console.log("Caso4")
+            //console.log("Caso4")
             
             //crear las cabeceras
             //NodoColumna=self.crear_columna(x)
@@ -203,13 +201,237 @@ class Dispersa{
             var text = ""
             var aux2 = aux
             while(aux2!=null){
-                text+= "["+aux2.x + aux2.y+"]"
+                text+= "["+ aux2.x +","+ aux2.y+"]"
                 aux2=aux2.siguiente
             }
             console.log(text)
             aux=aux.abajo
         }
         return null
+    }
+    imprimir_horizontal(){
+        let cabecera=this.root
+        let aux
+        while(cabecera!=null){
+            aux=cabecera.abajo
+            while(aux!=null){
+                console.log("Valor :", aux.dato, " X:",aux.x , " Y:", aux.y)
+                aux=aux.abajo
+            }
+            cabecera=cabecera.siguiente
+
+        }
+    }
+    graficar(){
+        
+
+        var val = new Boolean(true)
+        var codigodot = "digraph G {\n"
+        codigodot +="edge[dir=both]\n"
+        codigodot +="node[ style=filled ,color=\"#E1E1A8\", shape=box];";
+        codigodot +="label=\"" + "DISPERSA" + "\";\n";
+        var conexiones ="";
+        var nodos ="";
+        var numnodo= 0;
+        var px=0;
+        var py=0;
+
+        var aux =this.root
+        while(aux!=null){
+            var text = ""
+            var aux2 = aux
+            while(aux2!=null){
+                if (val==true) {
+                    px=aux2.x
+                    py=aux2.y
+                    val=false
+                }else{
+                    if (aux2.x>px) {
+                        px=aux2.x
+                    }
+                    if (aux2.y>py) {
+                        py=aux2.y   
+                    }
+
+                }
+                console.log("Pos"+"["+aux2.x +","+aux2.y+"]"+ " Valor :"+aux2.dato)
+                aux2=aux2.abajo
+               
+            }
+            console.log(text)
+            aux=aux.siguiente
+        }
+        console.log("MAX "+"["+px+","+py+"]")
+
+        console.log("_____________________ CODIGO GRAPHVIZ ___________________")
+        //NODOS X
+        codigodot += "//agregando nodos\n"
+        for (let index = 1; index <= px; index++) {
+            codigodot+=  "x" + index + "[label=\"" + index+ "\",shape=box, group=0 ];\n"
+            
+        }
+        codigodot+="\n"
+        //NODOS Y
+        for (let index = 1; index <= py; index++) {
+            codigodot+=  "y" + index + "[label=\"" + index+ "\",shape=box, group= "+index+"];\n"
+            
+        }
+        codigodot+="\n"
+        var temporal =this.root
+        var val2 = new Boolean(true)
+
+        while(temporal!=null){
+            var auxiliar = temporal
+            while(auxiliar!=null){
+                if (val2) {
+                   codigodot+="Nraiz[label=\"raiz\",shape=box, group=0]\n"
+                   codigodot+="\n"
+                   val2=false
+                }
+                codigodot+="N" +auxiliar.x + "_" + auxiliar.y + "[label=\""+ "(" +auxiliar.x+ "," + auxiliar.y  + ")" + "\",shape=box"+", group="+auxiliar.y+ ",style=filled," + "]\n"
+
+                auxiliar=auxiliar.abajo
+            }
+            
+            temporal=temporal.siguiente
+        }
+        //AQUI VALGO MADRE
+        var cx="{rank = same;"
+        var cp = "{rank = same;"
+        var init = new Boolean(true)
+        var popeye =this.root
+
+        while(popeye!=null){
+            var jux = popeye
+            while(jux!=null){
+                if (init) {
+                   cx+="x"+jux.x+";"
+                    init=false
+                }
+                if (init==false) {
+                    cx+="N"+jux.x+"_"+jux.y+";";
+                }
+            
+                jux=jux.abajo
+            }
+            init=true
+            cx+="}"
+            codigodot+=cx+"\n"
+            cx=cp
+            popeye=popeye.siguiente
+        }
+
+        var op = new Boolean(true)
+        var ayuda = "{rank = same;"
+
+        for (let index = 1; index <= py; index++) {
+            if (op) {
+               ayuda+= "Nraiz->"
+               op=false
+            }
+            ayuda+="y"+index+";"
+            
+        }
+        ayuda+="}"
+        codigodot+=ayuda+"\n"
+        
+        var tx =""
+        op=true
+
+        //uniendo ejes verticales
+        for (let index = 1; index <= px; index++) {
+            if (op) {
+                tx="Nraiz->"
+                op=false
+            }
+            if (index<px) {
+                tx+="x" + index +" -> "
+            } else {
+                tx+="x" + index
+            }
+            
+        }
+
+        codigodot+=tx+"\n"
+        tx=""
+        op=true
+        //uniendo ejes horizontales
+        for (let index = 1; index <= py; index++) {
+            if (op) {
+                tx="Nraiz->"
+                op=false
+            }
+            if (index<py) {
+                tx+="y" + index +" -> "
+            } else {
+                tx+="y" + index
+            }   
+        }   
+        codigodot+=tx+"\n" 
+
+        //uniendo columnas
+        
+        init=true
+        tx=""
+        var cols= this.root
+        while(cols!=null){ 
+            var sprus = cols
+            while(sprus!=null){
+                if (init) {
+                    tx+= "x" + sprus.x;
+                    init=false;
+                }
+                if(init==false){
+                    tx+="->"+ "N"+sprus.x+"_"+sprus.y;
+                }
+
+                sprus=sprus.abajo
+            }
+            codigodot+="\n" 
+            codigodot+=tx+"\n" 
+            cols=cols.siguiente
+            init=true
+            tx=""
+        }
+
+        //uniendo filas
+        var pou=1
+        codigodot+="\n"
+        init=true
+        tx="" 
+        while (pou<=py) {
+            var papasito =this.root
+            while (papasito!=null) {
+                var mamasita = papasito
+                while (mamasita!=null) {
+                    if(pou==mamasita.y){
+                        if(init){
+                            tx+="y" + mamasita.y
+                            init = false
+                        }
+                        if(init==false){
+                            tx+="->"+ "N"+mamasita.x+"_"+mamasita.y;
+                        }
+                    }
+                    mamasita=mamasita.abajo
+                }
+                papasito=papasito.siguiente
+                
+            }
+            codigodot+="\n"
+            codigodot+=tx+"\n"
+            init=true
+            tx=""
+            pou++
+        }
+        codigodot+="}\n"
+
+
+
+        
+        
+        console.log(codigodot)
+
     }
 
     }
@@ -219,10 +441,13 @@ class Dispersa{
 
 
 var matrizAux=new Dispersa()
-matrizAux.insertarNodo(0,0,"hola")
+
 matrizAux.insertarNodo(1,1,"hola")
 matrizAux.insertarNodo(2,2,"hola")
 matrizAux.insertarNodo(3,3,"hola")
 matrizAux.insertarNodo(1,3,"hola")
 matrizAux.insertarNodo(5,1,"hola")
+
+console.log("______________ CONTENIDO")
 matrizAux.imprimir()
+matrizAux.graficar()

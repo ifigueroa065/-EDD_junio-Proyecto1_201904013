@@ -154,15 +154,19 @@ class Arbol_Binario{
     
          
 }
-
-
+//30,50,10,5,25,15,40,35,20,45
+//25, 10, 5, 20, 35, 30, 40
 const arbol_binario = new Arbol_Binario()
-arbol_binario.agregar("AnaFrank")
-arbol_binario.agregar("AliceKellen")
-arbol_binario.agregar("JohnleCarré")
-arbol_binario.agregar("StephenieMeyer")
-arbol_binario.agregar("PauloCoelho")
-arbol_binario.agregar("MarthaCerda")
+arbol_binario.agregar(30)
+arbol_binario.agregar(50)
+arbol_binario.agregar(10)
+arbol_binario.agregar(5)
+arbol_binario.agregar(25)
+arbol_binario.agregar(15)
+arbol_binario.agregar(40)
+arbol_binario.agregar(35)
+arbol_binario.agregar(20)
+arbol_binario.agregar(45)
 
 console.log("Metodo preorden:\n")
 arbol_binario.pre_orden()
@@ -175,5 +179,5 @@ arbol_binario.post_orden()
 
 console.log("__________________ Código de Graphviz __________________\n")
 
-arbol_binario.obtener_codigo_Graphviz()
+//arbol_binario.obtener_codigo_Graphviz()
 

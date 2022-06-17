@@ -3,7 +3,7 @@ from NodoMatriz import NodoMatriz
 
 class Matriz():
     def __init__(self):
-        self.root=NodoMatriz(-1,-1,"Root")
+        self.root=NodoMatriz(0,0,"Root")
 
 
 ##Buscar columna
@@ -25,7 +25,7 @@ class Matriz():
 ##Insertar Cabecera Columna
     def crear_columna(self,x):
         nodo_col=self.root
-        nuevo=NodoMatriz(x,-1,"COL")
+        nuevo=NodoMatriz(x,0,"COL")
         columna=self.insertar_orden_col(nuevo,nodo_col)
         return columna
 
@@ -62,7 +62,7 @@ class Matriz():
 ##Insertar Cabecera Fila
     def crear_fila(self,y):
         nodo_fila=self.root
-        nuevo=NodoMatriz(-1,y,"Fila")
+        nuevo=NodoMatriz(0,y,"Fila")
         columna=self.insertar_orden_fil(nuevo,nodo_fila)
         return columna
 
