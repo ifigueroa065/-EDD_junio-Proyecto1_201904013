@@ -75,12 +75,12 @@ class Matrix{
     constructor(id,name){
         this.id=id;
         this.name=name 
-        this.colsList = new Header();
-        this.rowsList = new Header(); 
+        this.columna = new Header();
+        this.fila = new Header(); 
     }
     printCols(){
         console.log("Imprimir por columnas");
-        var auxc = this.colsList.head;
+        var auxc = this.columna.head;
         while (auxc != null) {
             console.log("Columna: " + auxc.pos + " -> ");
             var aux = auxc.access;
@@ -95,7 +95,7 @@ class Matrix{
     
     printRows(){
         console.log("Imprimir por filas");
-        var auxr = this.rowsList.head;
+        var auxr = this.fila.head;
         while (auxr != null) {
             console.log("Fila: " + auxr.pos + " -> ");
             var aux = auxr.access;
@@ -118,10 +118,10 @@ class Matrix{
             return;
         }
         
-        var nodoCol = this.colsList.getHeader(x);
+        var nodoCol = this.columna.getHeader(x);
         if (nodoCol == null){
             nodoCol = new HeaderNode(x);
-            this.colsList.setHeader(nodoCol);
+            this.columna.setHeader(nodoCol);
             nodoCol.access = newCell;
         } else if (y < nodoCol.access.y) {
             newCell.down = nodoCol.access;
@@ -147,10 +147,10 @@ class Matrix{
         }
         
 
-        var nodoFil = this.rowsList.getHeader(y);
+        var nodoFil = this.fila.getHeader(y);
         if (nodoFil == null){
             nodoFil = new HeaderNode(y);
-            this.rowsList.setHeader(nodoFil);
+            this.fila.setHeader(nodoFil);
             nodoFil.access = newCell;
         } else if (x < nodoFil.access.x){
             newCell.next = nodoFil.access;
@@ -177,10 +177,10 @@ class Matrix{
     }
 
     returnIfExists(x, y){
-        var headRow = this.rowsList.getHeader(y);
+        var headRow = this.fila.getHeader(y);
         if (headRow == null)
             return null;
-        var headCol = this.colsList.getHeader(x);
+        var headCol = this.columna.getHeader(x);
         if (headCol == null)
             return null;
         
@@ -196,7 +196,7 @@ class Matrix{
     }
 
     insertMatriz(m){
-        var auxc = m.colsList.head;
+        var auxc = m.columna.head;
         while (auxc != null){
             var aux = auxc.access;
             while (aux != null){
@@ -217,7 +217,7 @@ class Matrix{
         
         //creando nodos columna
         
-        var auxc = this.colsList.head;
+        var auxc = this.columna.head;
         codigodot+= "Root -> m"+auxc.pos+";\n"
         codigodot += "\n"
         codigodot += "//creando encabezados columna\n"
@@ -232,7 +232,7 @@ class Matrix{
             auxc = auxc.next;
         }
         
-        auxc = this.colsList.head;
+        auxc = this.columna.head;
         codigodot += "\n"
         codigodot+="{ rank = same; Root;"
 
@@ -244,7 +244,7 @@ class Matrix{
         codigodot+="}\n"
         
         //creando nodos filas
-        var auxr = this.rowsList.head;
+        var auxr = this.fila.head;
         codigodot+="Root -> n"+auxr.pos+";\n"
         codigodot += "\n"
         codigodot += "//creando encabezados fila\n"
@@ -260,7 +260,7 @@ class Matrix{
         }
         
         //noditos
-        var auxc = this.colsList.head;
+        var auxc = this.columna.head;
         codigodot += "\n"
         codigodot += "//creando nodos \n"
         while (auxc != null){
@@ -274,7 +274,7 @@ class Matrix{
         
         //conectando columnas
         
-        var auxc = this.colsList.head;
+        var auxc = this.columna.head;
         codigodot += "\n"
         codigodot += "//creando conexiones\n"
         while (auxc != null){
@@ -297,7 +297,7 @@ class Matrix{
         //conectando filas
 
         
-        var auxr = this.rowsList.head;
+        var auxr = this.fila.head;
         
         while (auxr != null){
             if (auxr.access != null){
@@ -317,7 +317,7 @@ class Matrix{
 
         //haciendo la magia :)
         
-        var auxr = this.rowsList.head;
+        var auxr = this.fila.head;
         codigodot += "\n"
 
         while (auxr != null){
@@ -352,7 +352,7 @@ class Matrix{
         var px=0;
         var py=0;
 
-        var aux =this.colsList.head
+        var aux =this.columna.head
         while(aux!=null){
             var text = ""
             var aux2 = aux
@@ -393,7 +393,7 @@ class Matrix{
             
         }
         codigodot+="\n"
-        var temporal =this.colsList.head
+        var temporal =this.columna.head
         var val2 = new Boolean(true)
 
         while(temporal!=null){
@@ -415,7 +415,7 @@ class Matrix{
         var cx="{rank = same;"
         var cp = "{rank = same;"
         var init = new Boolean(true)
-        var popeye =this.colsList.head
+        var popeye =this.columna.head
 
         while(popeye!=null){
             var jux = popeye
@@ -489,7 +489,7 @@ class Matrix{
         
         init=true
         tx=""
-        var cols= this.colsList.head
+        var cols= this.columna.head
         while(cols!=null){ 
             var sprus = cols
             while(sprus!=null){

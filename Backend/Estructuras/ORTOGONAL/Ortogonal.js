@@ -40,7 +40,7 @@ class L_Ortogonal {
                 var tempNodo= new Node(pix)
 
                 //creando una nueva fila
-                aux.bot=tempNodo    //apunta abajo
+                aux.bot=tempNodo    //apunta bot
                 tempNodo.top=aux    //apunta arriba
             } else {
                 //recorrido horizontal
@@ -94,88 +94,92 @@ class L_Ortogonal {
         console.log(img)
 
     }
+    
 
-    graficar(){
-        var codigodot = "digraph G {\n"
-        codigodot +="node[ style=filled ,color=\"#E1E1A8\", shape=box];";
-        codigodot +="label=\"" + "PILA" + "\";\n";
-        var aux = this.cabeza
-        var conexiones ="";
-        var nodos ="";
-        var numnodo= 0;
-        var contcol=1
-        var contfila=1
-        var img = ""
-        
-        
-        
-        while (aux.bot!=null || aux.right!=null) {
-            nodos+=  "N" + numnodo + "[label=\"" + aux.pix + "\" ];\n"
-            
-            
-            
-            if (aux.right!=null) {
-                aux=aux.right
-                contcol++
-                var auxnum = numnodo+1
-                conexiones += "N" + numnodo + " -> N" + auxnum + ";\n"
-                conexiones += "N" + auxnum + " -> N" + numnodo + ";\n"
-                numnodo++
-                
-            } else {
-                contfila++
-                contcol=1
-                //imprimo la fila que leí
-                console.log(img)
-                if (aux.bot!=null) {
-                    img=""
-                    aux=aux.bot
-                    while (aux.left!=null) {
-                        aux=aux.left
+    graficar() {
+        if (this.cabeza != null) {
+            var codigodot  = "digraph G{\n"
+            codigodot+="node[ style=filled ,color=\"#819BE1\", shape=box];\n"
+            codigodot+="label = \""+"MATRIZ ORTOGONAL"+"\";\n"
+            var nodos = ""
+            var conexiones = ""
+            var rank = ""
+            var num = 1
+            var i = 0;
+            codigodot += "\n"
+                ///** */
+            var aux = this.cabeza
+            while (aux != null) {
+                var auxi = aux
+                var datos = ""
+                while (auxi != null) {
+                    nodos += "N" + num + "[label=\"" + auxi.pix + "\"];\n"
+
+                    //apuntador bot
+                    if (auxi.bot != null) {
+                        conexiones += "N" + num + " -> N" + (num + this.cont) + "[ dir = both ];\n"
                     }
+
+                    //apuntador derecha
+                    if (auxi.right != null) {
+                        conexiones += "N" + num + " -> N" + (num + 1) + "[ dir = both ];\n"
+                    }
+                    if (i == 0) {
+                        var aux2 = aux;
+                        var nodoaux = " ";
+                        var auxnum = num;
+                        while (aux2 != null) {
+
+                            nodoaux += "N" + auxnum + ";"
+                            aux2 = aux2.right
+                            auxnum++;
+
+
+                        }
+                        rank += "{rank=same " + nodoaux + "};\n"
+                    }
+                    datos = datos + " " + auxi.pix
+                    num++;
+                    auxi = auxi.right
+                    i++;
                 }
+                i = 0;
+                aux = aux.bot
+                console.log(datos)
             }
+
+
+            ///** */
+            codigodot += rank;
+            codigodot += nodos;
+            codigodot += conexiones;
+            codigodot += "\n}";
+            console.log(codigodot)
+            d3.select("#ABBIMG").graphviz()
+                .width(1200)
+                .height(1200)
+                .renderDot(codigodot)
+
+
+        } else {
+            console.log("no hay datos ")
         }
-        nodos+=  "N" + numnodo + "[label=\"" + aux.pix + "\" ];\n"
-        console.log(img)
-        codigodot += "//agregando nodos\n"
-        codigodot += nodos+"\n"
-        codigodot += "//agregando conexiones o flechas\n"
-        codigodot += "{rank=same;\n"+conexiones+"\n}\n}"
-        console.log(codigodot)
-        
-        d3.select("#lienzo").graphviz()
-            .width(1200)
-            .height(500)
-            .renderDot(codigodot)
-
-
-
-            
     }
 
 }
 
 const prueba= new L_Ortogonal
-prueba.agregarNodo("#",1)
-prueba.agregarNodo("#",1)
-prueba.agregarNodo("#",1)
-prueba.agregarNodo("#",1)
 
-prueba.agregarNodo("-",2)
-prueba.agregarNodo("#",2)
-prueba.agregarNodo("-",2)
-prueba.agregarNodo("#",2)
+var i=1
+while(i<=5){
+    for (let index = 1; index <= 5; index++) {
+        prueba.agregarNodo(" ",i)
+        
+    }
+    i++
+}
 
-prueba.agregarNodo("#",3)
-prueba.agregarNodo("#",3)
-prueba.agregarNodo("#",3)
-prueba.agregarNodo("#",3)
-
-prueba.agregarNodo("#",4)
-prueba.agregarNodo("#",4)
-prueba.agregarNodo("#",4)
-prueba.agregarNodo("#",4)  
+ 
 
 prueba.mostrarLista()
 prueba.graficar()

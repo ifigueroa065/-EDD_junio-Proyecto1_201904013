@@ -81,10 +81,79 @@ class Matriz{
             temporaly = temporaly.abajo
         }
     }
+    graficar() {
+        if (this.raiz != null) {
+            var codigodot = "digraph R{\nlabel=\" Ortogonal\";\nnode [shape=box];\n"
+            var nodos = ""
+            var conexiones = ""
+            var rank = ""
+            var num = 1
+            var i = 0;
+            codigodot += "\n"
+                ///** */
+            var aux = this.raiz
+            while (aux != null) {
+                var auxi = aux
+                var datos = ""
+                while (auxi != null) {
+                    nodos += "N" + num + "[label=\"" + auxi.valor + "\"];\n"
+
+                    //apuntador abajo
+                    if (auxi.abajo != null) {
+                        conexiones += "N" + num + " -> N" + (num + 25) + "[ dir = abajoh ];\n"
+                    }
+
+                    //apuntador derecha
+                    if (auxi.siguiente != null) {
+                        conexiones += "N" + num + " -> N" + (num + 1) + "[ dir = abajoh ];\n"
+                    }
+                    if (i == 0) {
+                        var aux2 = aux;
+                        var nodoaux = " ";
+                        var auxnum = num;
+                        while (aux2 != null) {
+
+                            nodoaux += "N" + auxnum + ";"
+                            aux2 = aux2.siguiente
+                            auxnum++;
+
+
+                        }
+                        rank += "{rank=same " + nodoaux + "};\n"
+                    }
+                    datos = datos + " " + auxi.pix
+                    num++;
+                    auxi = auxi.siguiente
+                    i++;
+                }
+                i = 0;
+                aux = aux.abajo
+                console.log(datos)
+            }
+
+
+            ///** */
+            codigodot += rank;
+            codigodot += nodos;
+            codigodot += conexiones;
+            codigodot += "\n}";
+            console.log(codigodot)
+            d3.select("#ABBIMG").graphviz()
+                .width(1200)
+                .height(1200)
+                .renderDot(codigodot)
+
+
+        } else {
+            console.log("no hay datos ")
+        }
+    }
 
 }
 
 var matriz = new Matriz();
 matriz.llenarmatrizortogonal();
+matriz.insercionmatriz(201901374,1,1)
 matriz.insercionmatriz(201901374,5,6)
-matriz.mostrarmatriz()
+//matriz.mostrarmatriz()
+matriz.graficar()
