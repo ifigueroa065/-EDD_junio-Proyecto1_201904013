@@ -1,4 +1,4 @@
-class Nodo {
+class Nodo_Simple {
     constructor(_PersonajeMK) {
         this.PersonajeMK = _PersonajeMK
         this.siguiente = null
@@ -10,7 +10,7 @@ class Listasimple{
         this.cabecera = null
     }
     agregarPersonajes(_objetoPersonaje) {
-        var tempo = new Nodo(_objetoPersonaje)
+        var tempo = new Nodo_Simple(_objetoPersonaje)
         tempo.siguiente = this.cabecera
         this.cabecera = tempo
     }

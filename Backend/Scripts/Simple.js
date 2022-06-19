@@ -1,9 +1,12 @@
 class Node_Pendiente {
    
-    constructor(nombre_usuario,nombre_libro,cantidad){
-        this.nombre_usuario = nombre_usuario
+    constructor(isbn,nombre_autor,nombre_libro,cantidad,paginas,categoria){
+        this.isbn=isbn
+        this.nombre_autor=nombre_autor
         this.nombre_libro=nombre_libro
         this.cantidad=cantidad
+        this.paginas=paginas
+        this.categoria=categoria
         this.next = null
     }
 }
@@ -17,8 +20,8 @@ class Cola_Pendientes {
         this.size = 0
     }
     
-    encolar(nombre_usuario,nombre_libro,cantidad){
-        var newNode = new Node_Pendiente(nombre_usuario,nombre_libro,cantidad)
+    encolar(isbn,nombre_autor,nombre_libro,cantidad,paginas,categoria){
+        var newNode = new Node_Pendiente(isbn,nombre_autor,nombre_libro,cantidad,paginas,categoria)
         if(!this.first){
             this.first = newNode
             this.last = newNode
@@ -43,16 +46,16 @@ class Cola_Pendientes {
 
     mostrar(){
         var temp = this.first
-        console.log("____________ COLA DE PENDIENTES ______________")
+        console.log("____________ COLA DE LIBROS ______________")
         while(temp!=null){
-            
-            console.log("Nombre: " + temp.nombre_usuario)
+            console.log("ISBN: " + temp.isbn)
+            console.log("Nombre: " + temp.nombre_autor)
             console.log("Libro: " + temp.nombre_libro)
             console.log("Cantidad: " + temp.cantidad)
             console.log("________________________")
             temp=temp.next
         }
-        console.log("Primero: "+this.first.nombre_usuario)
+        console.log("Primero: "+this.first.nombre_autor)
     }
 
     graficar(){
@@ -66,9 +69,9 @@ class Cola_Pendientes {
         
         while (temporal != null) {
             nodos+=  "N" + numnodo + "[label=\"" 
-            +"Cliente:"+ temporal.nombre_usuario +"\n"
             +"Nombre_libro:"+ temporal.nombre_libro +"\n"
-            +"Cantidad:"+ temporal.cantidad
+            +"isbn:"+ temporal.isbn +"\n"
+            +"Páginas:"+ temporal.paginas
             + "\" ];\n"
             if(temporal.next != null){
                 var auxnum = numnodo+1
@@ -96,22 +99,33 @@ class Cola_Pendientes {
             var sig = act.next;//esta en el siguiente nodo 
             while(act.next != null)
             {
-                if(act.cantidad > sig.cantidad)
+                if(act.nombre_libro.replace(/ /g, "") > sig.nombre_libro.replace(/ /g, ""))
                 {
-                    //guardo valores actuales    
+                    //guardo valores actuales
+                    var auxnombrelib =act.nombre_libro; 
+                    var auxisbn= act.isbn;
+                    var auxpaginas= act.paginas;
                     var auxcantidad = act.cantidad;
-                    var auxnombre = act.nombre_usuario;
-                    var auxnombrelib =act.nombre_libro;
+                    var auxautor = act.nombre_autor;
+                    var auxcategoria = act.categoria;
+                    
                     
                     //se hace cambio de actual==siguiente
-                    act.cantidad = sig.cantidad;
-                    act.nombre_usuario = sig.nombre_usuario;
                     act.nombre_libro= sig.nombre_libro;
+                    act.isbn= sig.isbn;
+                    act.paginas= sig.paginas;
+                    act.cantidad = sig.cantidad;
+                    act.nombre_autor = sig.nombre_autor;
+                    act.categoria= sig.categoria;
 
                     //se hace seteo de siguiente == actual
-                    sig.cantidad = auxcantidad;
-                    sig.nombre_usuario = auxnombre;
                     sig.nombre_libro= auxnombrelib;
+                    sig.isbn= auxisbn
+                    act.paginas=auxpaginas;
+                    sig.cantidad = auxcantidad;
+                    sig.nombre_autor = auxautor;
+                    sig.categoria=auxcategoria
+                    
                     
                     //pasa a la siguiente comparación
                     act = act.next;
@@ -138,9 +152,14 @@ class Cola_Pendientes {
  
         var pivot_prev = start;
         var curr = start;
-        var pivot_cantidad = end.cantidad;
-        var pivot_nombre_usuario = end.nombre_usuario;
+
         var pivot_nombre_lib =end.nombre_libro
+        var pivot_cantidad = end.cantidad;
+        var pivot_nombre_autor = end.nombre_autor;
+        var pivot_isbn =end.isbn
+        var pivot_paginas = end.paginas;
+        var pivot_categoria = end.categoria;
+        
 
 
         // iterate till one before the end,
@@ -148,20 +167,33 @@ class Cola_Pendientes {
         // because end is pivot
 
         while (start != end) {
-            if (start.cantidad < pivot_cantidad) {
+            if (start.nombre_libro.replace(/ /g, "") < pivot_nombre_lib.replace(/ /g, "")) {
                 // keep tracks of last modified item
                 pivot_prev = curr;
-                var aux_cantidad = curr.cantidad;
-                var aux_nombreu = curr.nombre_usuario
+
                 var aux_nombrelib = curr.nombre_libro
+                var aux_cantidad = curr.cantidad;
+                var aux_autor = curr.nombre_autor
+                var aux_isbn=curr.isbn
+                var aux_categoria= curr.categoria
+                var aux_paginas = curr.paginas
+                
 
-                curr.cantidad = start.cantidad;
-                curr.nombre_usuario=start.nombre_usuario;
                 curr.nombre_libro=start.nombre_libro;
+                curr.cantidad = start.cantidad;
+                curr.nombre_autor=start.nombre_autor;
+                curr.isbn=start.isbn;
+                curr.paginas = start.paginas;
+                curr.categoria=start.categoria;
 
-                start.cantidad = aux_cantidad;
-                start.nombre_usuario= aux_nombreu;
+                
                 start.nombre_libro = aux_nombrelib
+                start.cantidad = aux_cantidad;
+                start.nombre_autor= aux_autor;
+                start.isbn = aux_isbn
+                start.paginas = aux_paginas;
+                start.categoria= aux_categoria;
+                
                 curr = curr.next;
             }
             start = start.next;
@@ -169,17 +201,27 @@ class Cola_Pendientes {
  
         // swap the position of curr i.e.
         // next suitable index and pivot
-        var aux_cantidad2 = curr.cantidad;
-        var aux_nombreu2 = curr.nombre_usuario
         var aux_nombrelib2 = curr.nombre_libro
+        var aux_cantidad2 = curr.cantidad;
+        var aux_autor2 = curr.nombre_autor
+        var aux_isbn2 = curr.isbn;
+        var aux_paginas2 = curr.paginas
+        var aux_categoria2 = curr.categoria
 
-        curr.cantidad = pivot_cantidad;
-        curr.nombre_usuario= pivot_nombre_usuario;
         curr.nombre_libro=pivot_nombre_lib
+        curr.cantidad = pivot_cantidad;
+        curr.nombre_autor= pivot_nombre_autor;
+        curr.isbn=pivot_isbn
+        curr.paginas = pivot_paginas;
+        curr.categoria= pivot_categoria;
+        
 
-        end.cantidad = aux_cantidad2;
-        end.nombre_usuario = aux_nombreu2;
         end.nombre_libro = aux_nombrelib2;
+        end.cantidad = aux_cantidad2;
+        end.nombre_autor = aux_autor2;
+        end.isbn = aux_isbn2;
+        end.paginas = aux_paginas2;
+        end.categoria = aux_categoria2;
         
  
         // return one previous to current

@@ -1,6 +1,17 @@
-class Nodo {
-    constructor(n) {
-        this.n = n
+class Nodo_Circular {
+    constructor(dpi,nombre_completo,nombre_usuario,correo,rol,contrasenia,telefono) {
+        
+        //Data 
+        this.dpi = dpi
+        this.nombre_completo=nombre_completo
+        this.nombre_usuario= nombre_usuario
+        this.correo=correo
+        this.rol=rol
+        this.contrasenia=contrasenia
+        this.telefono=telefono
+        this.obtenidos= new Cola_Obs() //Lista de libros obtenidos
+
+        //Apuntadores
         this.siguiente = null
         this.anterior = null
     }
@@ -13,8 +24,8 @@ class ListaDobleCircular{
         this.tam=0
     }
 
-    add(digito) {
-        var nuevo = new Nodo(digito)
+    add(dpi,nombre_completo,nombre_usuario,correo,rol,contrasenia,telefono) {
+        var nuevo = new Nodo_Circular(dpi,nombre_completo,nombre_usuario,correo,rol,contrasenia,telefono)
 
         if (this.primero==null) {
             this.primero=nuevo
@@ -38,7 +49,49 @@ class ListaDobleCircular{
         var temporal = this.primero
         var cont =0;
         while(cont<this.tam){
-            console.log(temporal.n)
+            console.log("__________ DATOS DEL USUARIO "+(cont+1)+" __________")
+            console.log("dpi : "+ temporal.dpi)
+            console.log("nombre_completo : "+ temporal.nombre_completo)
+            console.log("nombre_usuario : "+ temporal.nombre_usuario)
+            console.log("correo : "+ temporal.correo)
+            console.log("rol : "+ temporal.rol)
+            console.log("contrasenia : "+ temporal.contrasenia)
+            console.log("teléfono : "+ temporal.telefono)
+            temporal = temporal.siguiente
+            cont++;
+        }
+        
+    }
+
+    isExiste(user,pass){
+        var temporal = this.primero
+        var cont =0; 
+        
+        while(cont<this.tam){
+
+            if (user==temporal.nombre_usuario && pass==temporal.contrasenia) {
+                //si existe verifico el rol
+                return true
+                
+            }
+            temporal = temporal.siguiente
+            cont++;
+        }
+
+        return false
+        
+    }
+
+    getRol(user){
+        var temporal = this.primero
+        var cont =0; 
+        
+        while(cont<this.tam){
+            if (user==temporal.nombre_usuario) {
+                //si existe verifico el rol
+                return temporal.rol
+                
+            }
             temporal = temporal.siguiente
             cont++;
         }
@@ -70,7 +123,7 @@ class ListaDobleCircular{
         var cont =0;
         while (cont<this.tam) {
             
-            nodos+=  "N" + numnodo + "[label=\"" + temporal.n + "\" ];\n"
+            nodos+=  "N" + numnodo + "[label=\"" + temporal.nombre_usuario + "\" ];\n"
             if(temporal.siguiente==this.ultimo){
                 var auxnum = numnodo+1
                 conexiones += "N" + numnodo + " -> N" + auxnum + ";\n"
@@ -118,7 +171,7 @@ class ListaDobleCircular{
         var cont =0;
         while (temporal!=this.primero) {
             
-            nodos+=  "N" + numnodo + "[label=\"" + temporal.n + "\" ];\n"
+            nodos+=  "N" + numnodo + "[label=\"" + temporal.nombre_usuario + "\" ];\n"
             if(temporal.anterior==this.ultimo){
                 var auxnum = numnodo+1
                 conexiones += "N" + numnodo + " -> N" + auxnum + ";\n"
@@ -134,7 +187,7 @@ class ListaDobleCircular{
             cont++;  
                       
         }
-        nodos+=  "N" + numnodo + "[label=\"" + temporal.n + "\" ];\n"
+        nodos+=  "N" + numnodo + "[label=\"" + temporal.nombre_usuario + "\" ];\n"
         var auxnum = numnodo-1
         var auxo=0
         conexiones += "N" + auxnum + " -> N" + numnodo + ";\n"
@@ -169,7 +222,7 @@ class ListaDobleCircular{
         var cont =0;
         while (cont<this.tam) {
             
-            nodos+=  "N" + numnodo + "[label=\"" + temporal.n + "\" ];\n"
+            nodos+=  "N" + numnodo + "[label=\"" + temporal.nombre_usuario + "\" ];\n"
             if(temporal.siguiente==this.ultimo){
                 var auxnum = numnodo+1
                 conexiones += "N" + numnodo + " -> N" + auxnum + ";\n"
@@ -206,29 +259,4 @@ class ListaDobleCircular{
     }
 }
 
-var LDC = new ListaDobleCircular();
-LDC.add(2)
-LDC.add(0)
-LDC.add(1)
-LDC.add(9)
-LDC.add(0)
-LDC.add(4)
-LDC.add(0)
-LDC.add(1)
-LDC.add(3)
 
-LDC.mostrar()
-LDC.graficar()
-console.log("________________")
-LDC.mostrar_alreves()
-LDC.graficar_alreves()
-LDC.add(2)
-LDC.add(0)
-LDC.add(1)
-LDC.add(9)
-LDC.add(0)
-LDC.add(4)
-LDC.add(0)
-LDC.add(1)
-LDC.add(3)
-LDC.graficar_doble()

@@ -6,6 +6,43 @@ body {
   overflow-x: hidden;
 }
 
+#lienzo{
+  height: 200px;
+    width: 1800px;
+    background-color: #222831;
+}
+
+#lienzo2{
+  height: 200px;
+    width: 1800px;
+    background-color: #222831;
+}
+
+#lienzo_fantasia1{
+  height: 800px;
+  width: 1200px;
+  background-color: #222831;
+}
+
+#lienzo_fantasia2{
+  height: 800px;
+    width: 1200px;
+    background-color: #222831;
+}
+
+#lienzo_thriller1{
+  height: 800px;
+  width: 1200px;
+  background-color: #222831;
+}
+
+#lienzo_thriller2{
+  height: 800px;
+    width: 1200px;
+    background-color: #222831;
+}
+
+
 .layout_padding {
   padding: 90px 0;
 }
