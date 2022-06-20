@@ -175,87 +175,39 @@
       
 
       <div class="filters-content">
-        <div class="row grid">
-          <div class="col-sm-6 col-lg-4 all pizza">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="images/user.png" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Delicious Pizza
-                  </h5>
-                  <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                  </p>
-                  <div class="options">
-                    <h6>
-                      $20
-                    </h6>
-                    
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all burger">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="images/user.png" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Delicious Burger
-                  </h5>
-                  <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                  </p>
-                  <div class="options">
-                    <h6>
-                      $15
-                    </h6>
-                   
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all pizza">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="images/user.png" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Delicious Pizza
-                  </h5>
-                  <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                  </p>
-                  <div class="options">
-                    <h6>
-                      $17
-                    </h6>
-                   
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="row grid" id="usuarios_top">
+          
+
+          
+
+         
         </div>
       </div>
-      <div class="btn-box">
-        <a href="#INIT">
-          Volver
-        </a>
+      
+    </div>
+    <div class="p-3 mb-2 bg-white text-dark" ></div>
+    <div class="p-3 mb-2 bg-white text-dark" ></div>
+    <div class="p-3 mb-2 bg-white text-dark" ></div>
+    <div class="p-3 mb-2 bg-white text-dark" ></div>
+  <div class="p-3 mb-2 bg-white text-dark" ></div>
+  <div class="p-3 mb-2 bg-white text-dark" ></div>
+  <div class="p-3 mb-2 bg-white text-dark" ></div>
+    
+    <div class="p-3 mb-2 bg-white text-dark" >
+      
+      <div class="pt-1 mb-4">
+       
+        <button class="btn btn-dark btn-lg btn-block" type="button" id="mostrar_top">Ver</button>
+      </div>
+      <div class="container" id="lienzo_tops">
+          
+  
       </div>
     </div>
-
     
   </section>
+
+ 
 
   <!-- end TOPS section -->
 
@@ -348,6 +300,7 @@
       <div class="container" id="lienzo2">
         
       </div>
+      
           
       
       
@@ -504,20 +457,13 @@
               <th scope="col">Nombre del Libro</th>
               <th scope="col">Nombre del autor</th>
               <th scope="col">Categoría</th>
-              <th scope="col">Ver Libro </th>
+              
               
              
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>123412532</td>
-              <td>pololo</td>
-              <td>isai figueroa</td>
-              <td>fantasía</td>
-              <td><button class="btn btn-primary" type="button">Button</button></td>
-            </tr>
+          <tbody  id="t_fantasy">
+            
             
             
           </tbody>
@@ -529,9 +475,7 @@
     <div class="p-3 mb-2 bg-dark text-white" >
       
       Thriller
-      <div class="pt-1 mb-4">
-        <button class="btn btn-dark btn-lg btn-block" type="button" id="ver_thriller">Ver</button>
-      </div>
+      
       <div class="p-3 mb-2 bg-dark text-white"  >
         <div class="container" id="lienzo_thriller1">
           
@@ -550,20 +494,13 @@
               <th scope="col">Nombre del Libro</th>
               <th scope="col">Nombre del autor</th>
               <th scope="col">Categoría</th>
-              <th scope="col">Ver Libro </th>
+              
               
              
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>123412532</td>
-              <td>pololo</td>
-              <td>isai figueroa</td>
-              <td>fantasía</td>
-              <td><button class="btn btn-primary" type="button">Button</button></td>
-            </tr>
+          <tbody id="t_thriller">
+            
             
             
           </tbody>
@@ -582,17 +519,22 @@
           <div class="p-3 mb-2 bg-dark text-white">
             <button type="button" class="btn btn-light" id="bubblesort">Ascendente</button>
             <button type="button" class="btn btn-dark"id="quicksort">Descendete</button>
-            <button type="button" class="btn btn-success">Cargar</button>
+            <button type="button" class="btn btn-success" id="libs_usuario">Cargar</button>
 
-            <div class="container" id="lienzo_thriller1">
-          
+            <div class="container" id="content_libros">
 
-            </div>
+            </div>  
+            
+            
             <center>
               <textarea name="textarea" rows="20" cols="70" id="content">
 
               </textarea>
             </center>
+            
+
+            
+
             
           
           </div>
@@ -603,28 +545,104 @@
     </div>
     <div class="p-3 mb-2 bg-dark text-white">
       ejemplares
-
-      <div class="container" id="lienzo_thriller1">
-      
+      <div class="p-3 mb-2 bg-dark text-white"  >
+        <!-- aca mando todos los libros luego de cargarlos -->
+        <select class="form-select" aria-label="Default select example" id="libro_seleccionado" >
+          
+        </select>
+        
+      </div>
+      <div class="p-3 mb-2 bg-dark text-white"  >
 
       </div>
+      <div class="p-3 mb-2 bg-dark text-white"  >
+
+        <input type="text" id="cantidad_comprar" class="form-control form-control-lg" />
+        <label class="form-label" for="form2Example17"> Cantidad</label>
+      
+
+        
+      </div>
+      <div class="p-3 mb-2 bg-dark text-white"  >
+        <button type="button" class="btn btn-success" id="comprar">Comprar</button>
+        <button type="button" class="btn btn-secondary" id="ejemplarcito">Ver ejemplares</button>
+      </div>
+
+      <div class="p-3 mb-2 bg-dark text-white"  >
+        <div class="container" id="content_ejemplares">
+
+        </div> 
+      </div>
+      <div class="p-3 mb-2 bg-dark text-white"  >
+        <!-- aca mando todos los libros luego de cargarlos -->
+        <select class="form-select" aria-label="Default select example" id="libro_ejemplar" >
+          
+        </select>
+        
+      </div>
+
+      <div class="p-3 mb-2 bg-dark text-white"  >
+
+      </div>
+
+        
     </div>
     
     <div class="p-3 mb-2 bg-dark text-white" id="autores">
       
       Autores
-      <div class="pt-1 mb-4">
-        <button class="btn btn-dark btn-lg btn-block" type="button" id="ver_thriller">Ver</button>
+      
+     
+      <div class="p-3 mb-2 bg-dark text-white"  >
+
+        <input type="text" id="nombre_autor" class="form-control form-control-lg" />
+        <label class="form-label" for="form2Example17">Nombre del autor</label>
+      
+
+        
       </div>
-      <div class="container" >
+      <div class="p-3 mb-2 bg-dark text-white"  >
+        <button type="button" class="btn btn-success" id="s_autor">Buscar Autor</button>
+        
+      </div>
+
+      <div class="p-3 mb-2 bg-dark text-white"  >
+
+      </div>
+
+      <div class="p-3 mb-2 bg-dark text-white"   >
+        <table class="table table-dark table-striped" id="table_autores">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">dpi</th>
+              <th scope="col">Nombre del autor</th>
+              <th scope="col">Correo</th>
+              <th scope="col">Teléfono</th>
+              <th scope="col">Dirección</th>
+              <th scope="col">Biografia</th>
+
+            </tr>
+          </thead>
+          <tbody id="resultado_bs">
+            
+            
+            
+          </tbody>
+        </table>
+      </div>
+
+      <div class="p-3 mb-2 bg-dark text-white"  >
+
+      </div>
+
+      <div class="p-3 mb-2 bg-dark text-white" > ARBOL BINARIO
+        <div class="container" id="lienzo_arbolito">
           
-    
+
+        </div>
       </div>
-    
-      <div class="container" >
-          
-    
-      </div>
+      
       
       
     </div>
@@ -827,6 +845,10 @@
   <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
 
   <!-- SCRIPTS DE ESTRUCTURAS --> 
+  <script src="Backend/Scripts/Lista_Doble.js"></script>
+  <script src="Backend/Scripts/Auxiliar.js"></script>
+  <script src="Backend/Scripts/Pila.js"></script>
+  <script src="Backend/Scripts/Simple.js"></script>
   <script src="Backend/Scripts/Cola.js"></script>
   <script src="Backend/Scripts/Ortogonal.js"></script>
   <script src="Backend/Scripts/Dispersa.js"></script>
@@ -885,6 +907,16 @@
       document.getElementById("INIT").style.display="block";
       document.getElementById("TOPS").style.display="block";
 
+
+    }
+    function comprar(){
+      var a = document.getElementById("cantidad_comprar").value
+      var idprovincia = document.getElementById("libro_seleccionado");
+      var pro = idprovincia.options[idprovincia.selectedIndex].value;
+
+      
+
+      console.log("libro :" + pro + " cantidad:"+a)
 
     }
 

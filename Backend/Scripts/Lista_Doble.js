@@ -1,6 +1,7 @@
-class Node {
-    constructor(data, next, prev) {
-        this.data = data;
+class Node_TOP {
+    constructor(nombre,cantidad, next, prev) {
+        this.nombre = nombre;
+        this.cantidad=cantidad
         this.next = next;
         this.prev = prev;
     };
@@ -13,8 +14,8 @@ class DoubleLinkedList {
         this.size = 0;
     };
 
-    addToHead(data) {
-        const newNode = new Node(data, this.head, null);
+    addToHead(nombre,cantidad) {
+        const newNode = new Node_TOP(nombre,cantidad, this.head, null);
 
         if (this.head) {
             newNode.next = this.head;
@@ -27,8 +28,8 @@ class DoubleLinkedList {
         this.size++;
     };
 
-    addToTail(data) {
-        const newNode = new Node(data, null, this.tail);
+    addToTail(nombre,cantidad) {
+        const newNode = new Node_TOP(nombre,cantidad, null, this.tail);
 
         if (this.tail) {
             newNode.prev = this.tail;
@@ -41,12 +42,12 @@ class DoubleLinkedList {
         this.size++;
     };
 
-    insertAt(data, index) {
+    insertAt(nombre,cantidad, index) {
         if (index < 0 || index > this.size) {
             return null
         };
 
-        const newNode = new Node(data, null, null);
+        const newNode = new Node_TOP(nombre,cantidad, null, null);
         let current = this.head;
         let previous;
 
@@ -73,7 +74,7 @@ class DoubleLinkedList {
             return null
         };
 
-        const valueToReturn = this.head.data;
+        const valueToReturn = this.head.nombre;
 
         if (this.head === this.tail) {
             this.head = null;
@@ -91,7 +92,7 @@ class DoubleLinkedList {
             return null
         };
 
-        const valueToReturn = this.tail.data;
+        const valueToReturn = this.tail.nombre;
 
         if (this.head === this.tail) {
             this.head = null;
@@ -161,8 +162,46 @@ class DoubleLinkedList {
         var temp = this.head
 
         while(temp!=null){
-            console.log(temp.data)
+            console.log(temp.nombre)
             temp=temp.next
+        }
+        
+    }
+
+    mostrar_solo3(){
+        var a = document.getElementById("usuarios_top")
+        var cont=1;
+        a.innerHTML=``
+        
+
+        var temp = this.head
+
+        while(temp!=null){
+            if (cont<=3) {
+                a.innerHTML+=`<div class="col-sm-6 col-lg-4 all pizza">
+                <div class="box">
+                  <div>
+                    <div class="img-box">
+                      <img src="images/user.png" alt="">
+                    </div>
+                    <div class="detail-box">
+                      <h5>
+                        ${temp.nombre}
+                      </h5>
+                      <p>
+                       Cantidad :${temp.cantidad}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>`
+              cont++;
+              temp=temp.next
+            }else{
+                break
+            }
+            
+            
         }
         
     }
@@ -175,16 +214,27 @@ class DoubleLinkedList {
         var conexiones ="";
         var nodos ="";
         var numnodo= 0;
+        var conttops=1;
         
         while (temporal != null) {
-            nodos+=  "N" + numnodo + "[label=\"" + temporal.data + "\" ];\n"
-            if(temporal.next != null){
-                var auxnum = numnodo+1
-                conexiones += "N" + numnodo + " -> N" + auxnum + ";\n"
-                conexiones += "N" + auxnum + " -> N" + numnodo + ";\n"
+            
+            if(conttops<=3){
+                nodos+=  "N" + numnodo + "[label=\"" +
+                "Cliente :"+ temporal.nombre +"\n"+" Cantidad: "+temporal.cantidad
+                + "\" ];\n"
+                if(temporal.next != null && conttops!=3){
+                    var auxnum = numnodo+1
+                    conexiones += "N" + numnodo + " -> N" + auxnum + ";\n"
+                    conexiones += "N" + auxnum + " -> N" + numnodo + ";\n"
+                }
+                
+            }else{
+                break;
             }
             temporal = temporal.next
-            numnodo++;            
+                numnodo++;     
+                conttops++;
+                   
         }
         codigodot += "//agregando nodos\n"
         codigodot += nodos+"\n"
@@ -192,13 +242,54 @@ class DoubleLinkedList {
         codigodot += "{rank=same;\n"+conexiones+"\n}\n}"
         console.log(codigodot)
         
-        d3.select("#lienzo").graphviz()
+        d3.select("#lienzo_tops").graphviz()
             .width(1200)
             .height(500)
             .renderDot(codigodot)
     }
+
+    bubbleSort() {
+        var t=0;
+        do{
+            var act = this.head;//aux esta en el primer nodo
+            var sig = act.next;//esta en el siguiente nodo 
+            while(act.next != null)
+            {
+                if(act.cantidad < sig.cantidad)
+                {
+                    //guardo valores actuales    
+                    var auxcantidad = act.cantidad;
+                    var auxnombre = act.nombre_usuario;
+                    
+                    
+                    //se hace cambio de actual==siguiente
+                    act.cantidad = sig.cantidad;
+                    act.nombre_usuario = sig.nombre_usuario;
+                   
+
+                    //se hace seteo de siguiente == actual
+                    sig.cantidad = auxcantidad;
+                    sig.nombre_usuario = auxnombre;
+                    
+                    
+                    //pasa a la siguiente comparación
+                    act = act.next;
+                    sig = sig.next;
+                }
+                else
+                { 
+                    //pasa a la siguiente comparación
+                    act = act.next;
+                    sig = sig.next;
+                }
+            }
+            t++;
+        }while(t<=this.size);
+        this.mostrar()
+    }
 }
 
+/** 
 const doubleLinkedList = new DoubleLinkedList();
 doubleLinkedList.addToTail(3);
 doubleLinkedList.addToTail(2);
@@ -212,3 +303,5 @@ console.log(doubleLinkedList.print())
 
 doubleLinkedList.mostrar()
 doubleLinkedList.graficar()
+
+*/

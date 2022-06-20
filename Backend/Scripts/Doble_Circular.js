@@ -63,6 +63,26 @@ class ListaDobleCircular{
         
     }
 
+    comprar(nombre_usuario,nombre_libro,cantidad){
+        var temporal = this.primero
+        var cont =0;
+        while(cont<this.tam){
+
+            if (nombre_usuario==temporal.nombre_usuario) {
+                for (let index = 1; index <= cantidad; index++) {
+                    temporal.obtenidos.encolar(nombre_libro)
+                    
+                }
+                break;
+                
+            }
+           
+            temporal = temporal.siguiente
+            cont++;
+        }
+        
+    }
+
     isExiste(user,pass){
         var temporal = this.primero
         var cont =0; 
@@ -256,6 +276,43 @@ class ListaDobleCircular{
             .width(1800)
             .height(200)
             .renderDot(codigodot)
+    }
+
+    graficar_lista_de_listas(){
+        if (this.primero != null) {
+            var codigodot = "digraph G {\n"
+            codigodot +="node[ style=filled ,color=\"#E1E1A8\", shape=box];";
+            codigodot +="label=\"" + "RECORRIDO INICO A FIN" + "\";\n";
+            var nodos = ""
+            var conexiones = ""
+            var rank = "{rank=same "
+            var num = 1
+            var aux = this.primero
+            var nodosHijos = ""
+            while (aux.siguiente != this.primero) {
+                nodos += "N" + num + "[label=\"" + aux.nombre_usuario + "\"];\n"
+                conexiones += "N" + num + " -> N" + (num + 1) + ";\n"
+                rank += "N" + num + ";"
+                nodosHijos += aux.obtenidos.subgra(aux.dpi, num)
+                aux = aux.siguiente
+                num++;
+                if (aux.siguiente == this.primero) {
+                    nodos += "N" + num + "[label=\"" + aux.nombre_usuario + "\"];\n"
+                    conexiones += "N" + num + " -> N1;\n"
+                    nodosHijos += aux.obtenidos.subgra(aux.dpi, num)
+                    rank += "N" + num + ";"
+                }
+            }
+            rank += "};\n"
+            codigodot += rank + nodos + conexiones;
+            codigodot += nodosHijos;
+            codigodot += "\n}"
+            console.log(codigodot)
+            d3.select("#lienzo").graphviz()
+                .width(1100)
+                .height(700)
+                .renderDot(codigodot)
+        }
     }
 }
 

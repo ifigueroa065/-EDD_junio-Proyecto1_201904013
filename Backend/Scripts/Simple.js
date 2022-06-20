@@ -1,4 +1,4 @@
-class Node_Pendiente {
+class Node_Simple {
    
     constructor(isbn,nombre_autor,nombre_libro,cantidad,paginas,categoria){
         this.isbn=isbn
@@ -12,7 +12,7 @@ class Node_Pendiente {
 }
 
 
-class Cola_Pendientes {
+class Lista_libs {
   
     constructor(){
         this.first = null
@@ -21,7 +21,7 @@ class Cola_Pendientes {
     }
     
     encolar(isbn,nombre_autor,nombre_libro,cantidad,paginas,categoria){
-        var newNode = new Node_Pendiente(isbn,nombre_autor,nombre_libro,cantidad,paginas,categoria)
+        var newNode = new Node_Simple(isbn,nombre_autor,nombre_libro,cantidad,paginas,categoria)
         if(!this.first){
             this.first = newNode
             this.last = newNode
@@ -57,11 +57,22 @@ class Cola_Pendientes {
         }
         console.log("Primero: "+this.first.nombre_autor)
     }
+    buscar(nombre){
+        var temp = this.first
+        console.log("____________ COLA DE LIBROS ______________")
+        while(temp!=null){
+            if(nombre==temp.nombre_libro){
+                return temp.cantidad
+            }
+            temp=temp.next
+        }
+        console.log("Primero: "+this.first.nombre_autor)
+    }
 
     graficar(){
         var codigodot = "digraph G {\n"
         codigodot +="node[ style=filled ,color=\"#819BE1\", shape=box];";
-        codigodot +="label=\"" + "Cola de libros Pendientes" + "\";\n";
+        codigodot +="label=\"" + "Cola de libros " + "\";\n";
         var temporal = this.first
         var conexiones ="";
         var nodos ="";
@@ -86,9 +97,9 @@ class Cola_Pendientes {
         codigodot += "{rank=same;\n"+conexiones+"\n}\n}"
         console.log(codigodot)
         
-        d3.select("#lienzo2").graphviz()
-            .width(1200)
-            .height(500)
+        d3.select("#lienzo_libros").graphviz()
+            .width(800)
+            .height(200)
             .renderDot(codigodot)
     }
 
@@ -143,9 +154,7 @@ class Cola_Pendientes {
         this.mostrar()
     }
 
-    // takes first and last node,
-    // but do not break any links in
-    // the whole linked list
+    
     paritionLast( start,  end) {
         if (start == end || start == null || end == null)
             return start;
@@ -161,14 +170,11 @@ class Cola_Pendientes {
         var pivot_categoria = end.categoria;
         
 
-
-        // iterate till one before the end,
-        // no need to iterate till the end
-        // because end is pivot
-
         while (start != end) {
-            if (start.nombre_libro.replace(/ /g, "") < pivot_nombre_lib.replace(/ /g, "")) {
-                // keep tracks of last modified item
+            var x1=start.nombre_libro
+            var x2=pivot_nombre_lib
+            if (x1.replace(/ /g, "") > x2.replace(/ /g, "")) {
+                
                 pivot_prev = curr;
 
                 var aux_nombrelib = curr.nombre_libro
@@ -199,8 +205,7 @@ class Cola_Pendientes {
             start = start.next;
         }
  
-        // swap the position of curr i.e.
-        // next suitable index and pivot
+        
         var aux_nombrelib2 = curr.nombre_libro
         var aux_cantidad2 = curr.cantidad;
         var aux_autor2 = curr.nombre_autor
@@ -224,8 +229,7 @@ class Cola_Pendientes {
         end.categoria = aux_categoria2;
         
  
-        // return one previous to current
-        // because current is now pointing to pivot
+        
         return pivot_prev;
     }
 
@@ -234,19 +238,15 @@ class Cola_Pendientes {
         if (start == null || start == end || start == end.next)
             return;
  
-        // split list and partition recurse
+
         var pivot_prev = this.paritionLast(start, end);
         this.Quicksort(start, pivot_prev);
  
-        // if pivot is picked and moved to the start,
-        // that means start and pivot is same
-        // so pick from next of pivot
+       
         if (pivot_prev != null && pivot_prev == start)
             this.Quicksort(pivot_prev.next, end);
  
-        // if pivot is in between of the list,
-        // start from next of pivot,
-        // since we have pivot_prev, so we move two nodes
+        
         else if (pivot_prev != null && pivot_prev.next != null)
             this.Quicksort(pivot_prev.next.next, end);
 
@@ -255,14 +255,14 @@ class Cola_Pendientes {
 }
 
 /** 
-const quickQueue = new Cola_Pendientes
+const quickQueue = new Lista_libs
 
-quickQueue.encolar("isai","lol",8)
-quickQueue.encolar("as","lib1",25)
-quickQueue.encolar("fe","lib3",2)
-quickQueue.encolar("qw","lib5",7)
-quickQueue.encolar("ty","lib9",9)
-quickQueue.encolar("ui","lib0",11)
+quickQueue.encolar(1213,"naadas","piuqw",15,168,"asjfh")
+quickQueue.encolar(1213,"naadas","asd",15,168,"asjfh")
+quickQueue.encolar(1213,"naadas","tyu",15,168,"asjfh")
+quickQueue.encolar(1213,"naadas","ea",15,168,"asjfh")
+quickQueue.encolar(1213,"naadas","bt",15,168,"asjfh")
+quickQueue.encolar(1213,"naadas","zkj",15,168,"asjfh")
 
 
 
@@ -271,5 +271,5 @@ quickQueue.Quicksort(quickQueue.first,quickQueue.last)
 quickQueue.mostrar()
 //console.log("__________ BUBBLESORT _________________")
 //quickQueue.bubbleSort()
-//quickQueue.graficar()**/
-
+//quickQueue.graficar()
+**/ 

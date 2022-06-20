@@ -7,11 +7,35 @@ body {
 }
 
 #lienzo{
-  height: 200px;
+  height: 900px;
     width: 1800px;
     background-color: #222831;
 }
 
+#lienzo_libros{
+  height: 200px;
+    width: 800px;
+    background-color: #222831;
+}
+
+#lienzo_arbolito{
+  height: 800px;
+    width: 800px;
+    background-color: #222831;
+}
+
+#lienzo_ejemplar{
+  height: 600px;
+    width: 800px;
+    background-color: #222831;
+}
+
+
+#lienzo_tops{
+  height: 600px;
+    width: 800px;
+    background-color: #222831;
+}
 #lienzo2{
   height: 200px;
     width: 1800px;

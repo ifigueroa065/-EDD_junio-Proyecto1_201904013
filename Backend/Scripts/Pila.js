@@ -1,4 +1,4 @@
-class Node {
+class Node_Pila {
     constructor(value){
         this.value = value
         this.next = null
@@ -14,7 +14,7 @@ class Stack {
     }
     
     push(val){
-        var newNode = new Node(val)
+        var newNode = new Node_Pila(val)
         if(!this.first){
             this.first = newNode
             this.last = newNode
@@ -70,15 +70,16 @@ class Stack {
         codigodot += "{rankdir=\"TB\";\n"+conexiones+"\n}\n}"
         console.log(codigodot)
         
-        d3.select("#lienzo").graphviz()
-            .width(1200)
-            .height(500)
+        d3.select("#lienzo_ejemplar").graphviz()
+            .width(800)
+            .height(600)
             .renderDot(codigodot)
     }
 
     
 }
 
+/** 
 const stck = new Stack
 
 stck.push("value1")
@@ -87,4 +88,4 @@ stck.push("value3")
 stck.push("value4")
 
 stck.mostrar()
-stck.graficar()
+stck.graficar()*/

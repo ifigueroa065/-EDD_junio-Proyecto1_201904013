@@ -235,7 +235,7 @@ class L_Ortogonal {
             console.log(codigodot)
             d3.select("#lienzo_fantasia1").graphviz()
                 .width(1200)
-                .height(1200)
+                .height(800)
                 .renderDot(codigodot)
 
 

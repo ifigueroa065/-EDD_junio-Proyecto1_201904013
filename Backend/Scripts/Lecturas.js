@@ -12,8 +12,18 @@
     document.getElementById("bubblesort").onclick= mostrarbubblesort;
     document.getElementById("quicksort").onclick= mostrarquicksort;
 
-    let archivo;
+    document.getElementById("libs_usuario").onclick= correrlista;
+    document.getElementById("ejemplarcito").onclick= mostrarejemplar;
+    
 
+    document.getElementById("comprar").onclick= comprarLibro;
+
+    document.getElementById("s_autor").onclick= buscarAUTOR;
+    document.getElementById("mostrar_top").onclick= topsclientes;
+    
+
+    let archivo;
+    var usuarioactual="";
 
     //DECLARANDO ESTRUCTURAS GLOBALES
     var Autores_BST = new Arbol_Binario()
@@ -21,9 +31,11 @@
     var FantasyBooks = new L_Ortogonal()
     var ThrillerBooks = new M_Dispersa()
     var C_Pendientes= new Cola_Pendientes()
+    var ListBooks= new Lista_libs()
+    var TOPS_list = new DoubleLinkedList()
     
-    
-    
+
+
     //DECLARANDO ADMINISTRADOR POR DEFECTO
     UserList.add(2354168452525,"WIlfred Perez","Wilfred","admin@catbock.com","Administrador","123","+502 (123) 123-4567")
    
@@ -64,6 +76,26 @@
         //x.innerHTML+=text
         //console.log(text)
         console.log(jsonData)
+
+        var  contenido_f = document.getElementById("t_fantasy")
+        contenido_f.innerHTML= ` `
+
+        var  contenido_t = document.getElementById("t_thriller")
+        contenido_t.innerHTML= ` `
+
+
+        var  opciones = document.getElementById("libro_seleccionado")
+        var  opciones2 = document.getElementById("libro_ejemplar")
+        opciones.style.display="block";
+        opciones2.style.display="block";
+        opciones2.innerHTML=`
+        
+        <option selected>Selecciona un libro</option>
+      ` 
+        opciones.innerHTML=`
+        
+            <option selected>Selecciona un libro</option>
+          ` 
         for (let index = 0; index < jsonData.length; index++) {
 
             console.log("__________ DATOS DEL LIBRO "+(index+1)+" __________")
@@ -76,10 +108,34 @@
             console.log(jsonData[index].paginas);
             console.log(jsonData[index].categoria);
 
-            
+            //Guardando libritos en lista auxiliar
+            ListBooks.encolar(jsonData[index].isbn,
+                jsonData[index].nombre_autor,
+                jsonData[index].nombre_libro,
+                jsonData[index].cantidad,
+                jsonData[index].paginas,
+                jsonData[index].categoria
+            )
 
             
+            opciones.innerHTML+=`
+            <option value="${jsonData[index].nombre_libro}">
+            ${jsonData[index].nombre_libro}</option>` 
+            opciones2.innerHTML+=`
+            <option value="${jsonData[index].nombre_libro}">
+            ${jsonData[index].nombre_libro}</option>` 
+            
             if (jsonData[index].categoria=="Fantasia") {
+                contenido_f.innerHTML+=`<tr>
+                    <th scope="row">${index}</th>
+                    <td>${jsonData[index].isbn}</td>
+                    <td>${jsonData[index].nombre_libro}</td>
+                    <td>${jsonData[index].nombre_autor}</td>
+                    <td>${jsonData[index].categoria}</td>
+                    
+                    
+                    
+                    </tr>`
                 //si es Fantasía lo envío a ortogonal
                 FantasyBooks.agregarnodo(jsonData[index].fila,
                     jsonData[index].columna,
@@ -95,8 +151,19 @@
             } 
             if(jsonData[index].categoria=="Thriller"){
                 // si es Thriller lo envío a la dispersa
-                ThrillerBooks.insert(jsonData[index].fila,
-                    jsonData[index].columna,
+
+                contenido_t.innerHTML+=`<tr>
+                    <th scope="row">${index}</th>
+                    <td>${jsonData[index].isbn}</td>
+                    <td>${jsonData[index].nombre_libro}</td>
+                    <td>${jsonData[index].nombre_autor}</td>
+                    <td>${jsonData[index].categoria}</td>
+                    
+                    
+                    
+                    </tr>`
+                ThrillerBooks.insert(jsonData[index].columna,
+                    jsonData[index].fila,
                     jsonData[index].isbn,
                     jsonData[index].nombre_autor,
                     jsonData[index].nombre_libro,
@@ -192,11 +259,13 @@
         if (UserList.isExiste(user,pass)==true) {
             //si existe verifico el rol
             if (UserList.getRol(user)=="Administrador") {
+                usuarioactual=user;
                 document.getElementById("ADMINISTRADOR").style.display="block";
                 document.getElementById("LOGIN").style.display = "none";
                 document.getElementById("l_usuario").value=""
                 document.getElementById("l_pass").value=""
             } else {
+                usuarioactual=user;
                 document.getElementById("USUARIO").style.display="block";
                 document.getElementById("LOGIN").style.display = "none";
                 document.getElementById("l_usuario").value=""
@@ -216,36 +285,251 @@
     }
 
     function ver_cola() {
-        C_Pendientes.encolar("isai","lol",8)
-        C_Pendientes.encolar("as","lib1",25)
-        C_Pendientes.encolar("fe","lib3",2)
-        C_Pendientes.encolar("qw","lib5",7)
-        C_Pendientes.encolar("ty","lib9",9)
-        C_Pendientes.encolar("ui","lib0",11)
+        
         C_Pendientes.graficar()
     }
 
     function ver_circular() {
         
-        UserList.graficar()
+        UserList.graficar_lista_de_listas()
     }
 
     function cargar() {
         
         FantasyBooks.graficar()
         ThrillerBooks.graph_matrix()
+        Autores_BST.obtener_codigo_Graphviz()
     }
 
     function mostrarbubblesort() {
+        ListBooks.bubbleSort()
         document.getElementById("content").value=
-        "acá va el algoritmo del bubble"
+        ` bubbleSort() {
+            var t=0;
+            do{
+                var act = this.first;//aux esta en el primer nodo
+                var sig = act.next;//esta en el siguiente nodo 
+                while(act.next != null)
+                {
+                    if(act.nombre_libro.replace(/ /g, "") > sig.nombre_libro.replace(/ /g, ""))
+                    {
+                        //guardo valores actuales
+                        var auxnombrelib =act.nombre_libro; 
+                        var auxisbn= act.isbn;
+                        var auxpaginas= act.paginas;
+                        var auxcantidad = act.cantidad;
+                        var auxautor = act.nombre_autor;
+                        var auxcategoria = act.categoria;
+                        
+                        
+                        //se hace cambio de actual==siguiente
+                        act.nombre_libro= sig.nombre_libro;
+                        act.isbn= sig.isbn;
+                        act.paginas= sig.paginas;
+                        act.cantidad = sig.cantidad;
+                        act.nombre_autor = sig.nombre_autor;
+                        act.categoria= sig.categoria;
+    
+                        //se hace seteo de siguiente == actual
+                        sig.nombre_libro= auxnombrelib;
+                        sig.isbn= auxisbn
+                        act.paginas=auxpaginas;
+                        sig.cantidad = auxcantidad;
+                        sig.nombre_autor = auxautor;
+                        sig.categoria=auxcategoria
+                        
+                        
+                        //pasa a la siguiente comparación
+                        act = act.next;
+                        sig = sig.next;
+                    }
+                    else
+                    { 
+                        //pasa a la siguiente comparación
+                        act = act.next;
+                        sig = sig.next;
+                    }
+                }
+                t++;
+            }while(t<=this.size);
+            this.mostrar()
+        }`
     }
 
     function mostrarquicksort() {
+        ListBooks.Quicksort(ListBooks.first,ListBooks.last)
+        ListBooks.mostrar()
         document.getElementById("content").value=
-        "acá va el algoritmo del quicks"
+        `Quicksort( start,  end) {
+            if (start == null || start == end || start == end.next)
+                return;
+     
+    
+            var pivot_prev = this.paritionLast(start, end);
+            this.Quicksort(start, pivot_prev);
+     
+           
+            if (pivot_prev != null && pivot_prev == start)
+                this.Quicksort(pivot_prev.next, end);
+     
+            
+            else if (pivot_prev != null && pivot_prev.next != null)
+                this.Quicksort(pivot_prev.next.next, end);
+    
+            
+        }
+
+        paritionLast( start,  end) {
+            if (start == end || start == null || end == null)
+                return start;
+     
+            var pivot_prev = start;
+            var curr = start;
+    
+            var pivot_nombre_lib =end.nombre_libro
+            var pivot_cantidad = end.cantidad;
+            var pivot_nombre_autor = end.nombre_autor;
+            var pivot_isbn =end.isbn
+            var pivot_paginas = end.paginas;
+            var pivot_categoria = end.categoria;
+            
+    
+            while (start != end) {
+                if (start.nombre_libro.replace(/ /g, "") < pivot_nombre_lib.replace(/ /g, "")) {
+                    
+                    pivot_prev = curr;
+    
+                    var aux_nombrelib = curr.nombre_libro
+                    var aux_cantidad = curr.cantidad;
+                    var aux_autor = curr.nombre_autor
+                    var aux_isbn=curr.isbn
+                    var aux_categoria= curr.categoria
+                    var aux_paginas = curr.paginas
+                    
+    
+                    curr.nombre_libro=start.nombre_libro;
+                    curr.cantidad = start.cantidad;
+                    curr.nombre_autor=start.nombre_autor;
+                    curr.isbn=start.isbn;
+                    curr.paginas = start.paginas;
+                    curr.categoria=start.categoria;
+    
+                    
+                    start.nombre_libro = aux_nombrelib
+                    start.cantidad = aux_cantidad;
+                    start.nombre_autor= aux_autor;
+                    start.isbn = aux_isbn
+                    start.paginas = aux_paginas;
+                    start.categoria= aux_categoria;
+                    
+                    curr = curr.next;
+                }
+                start = start.next;
+            }
+     
+            
+            var aux_nombrelib2 = curr.nombre_libro
+            var aux_cantidad2 = curr.cantidad;
+            var aux_autor2 = curr.nombre_autor
+            var aux_isbn2 = curr.isbn;
+            var aux_paginas2 = curr.paginas
+            var aux_categoria2 = curr.categoria
+    
+            curr.nombre_libro=pivot_nombre_lib
+            curr.cantidad = pivot_cantidad;
+            curr.nombre_autor= pivot_nombre_autor;
+            curr.isbn=pivot_isbn
+            curr.paginas = pivot_paginas;
+            curr.categoria= pivot_categoria;
+            
+    
+            end.nombre_libro = aux_nombrelib2;
+            end.cantidad = aux_cantidad2;
+            end.nombre_autor = aux_autor2;
+            end.isbn = aux_isbn2;
+            end.paginas = aux_paginas2;
+            end.categoria = aux_categoria2;
+            
+     
+            
+            return pivot_prev;
+        }
+
+
+        `
     }
 
+    function correrlista() {
+        var a = document.getElementById("content_libros")
+
+        a.innerHTML=``
+
+        a.innerHTML=`<div class="container" id="lienzo_libros">
+          
+
+        </div>`
+        
+        ListBooks.graficar()
+    }
+
+    function mostrarejemplar(){
+        var idprovincia = document.getElementById("libro_ejemplar");
+        var pro = idprovincia.options[idprovincia.selectedIndex].value;
+
+        var ejemplares = new Stack()
+        var cantidad =ListBooks.buscar(pro)
+        for (let index = 1; index <= cantidad; index++) {
+            ejemplares.push(index)
+            
+        }
+        
+        var a = document.getElementById("content_ejemplares")
+
+        a.innerHTML=``
+
+        a.innerHTML=`<div class="container" id="lienzo_ejemplar">
+          
+
+        </div>`
+        ejemplares.graficar()
+    }
+
+    function buscarAUTOR() {
+        var autor = document.getElementById("nombre_autor").value
+
+        Autores_BST.buscar(autor)
+    }
+
+    function comprarLibro() {
+        var cantidad = document.getElementById("cantidad_comprar").value
+        var idprovincia = document.getElementById("libro_seleccionado");
+        var nombre_libro = idprovincia.options[idprovincia.selectedIndex].value;
+        var disponible =ListBooks.buscar(nombre_libro)
+      //acá verifico la cantidad de ejemplares
+        if (cantidad<disponible) {
+            //compro
+            UserList.comprar(usuarioactual,nombre_libro,cantidad)
+            TOPS_list.addToTail(usuarioactual,cantidad)
+            alert("gracias por tu compra")
+        } else {
+            //se va a cola de espera
+            C_Pendientes.encolar(usuarioactual,nombre_libro,cantidad)
+            alert("lo sentimos, está agotado...")
+        }
+
+
+      
+
+      console.log("Usuario : " + usuarioactual + " libro :" + nombre_libro + " cantidad:"+cantidad)
+    }
+
+
+    function topsclientes() {
+        
+        TOPS_list.bubbleSort()
+        TOPS_list.mostrar_solo3()
+        TOPS_list.graficar()
+    }
     
     
     

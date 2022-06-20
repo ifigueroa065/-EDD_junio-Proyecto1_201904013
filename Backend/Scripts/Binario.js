@@ -61,7 +61,10 @@ class NodoB{
         texto+="node [shape = record, style=filled, color=\"#819BE1\"];\n"
         texto+=this.codigo_interno()
         texto+="}\n"
-        return texto
+        d3.select("#lienzo_arbolito").graphviz()
+            .width(800)
+            .height(800)
+            .renderDot(texto)
         
     }
 
@@ -200,9 +203,24 @@ class Arbol_Binario{
           return aux
     }
     buscar(value){
+        var contenido =document.getElementById("resultado_bs");
+        contenido.innerHTML= ` `
+
         console.log("_______ RESULTADO DE BÚSQUEDA ___________")
         var x = this.rebuscar(value)
         if (x!=null) {
+
+            contenido.innerHTML+=`<tr>
+            <th scope="row">1</th>
+            <td>${x.dpi}</td>
+            <td>${x.nombre_autor}</td>
+            <td>${x.correo}</td>
+            <td>${x.telefono}</td>
+            <td>${x.direccion}</td>
+            <td>${x.biografia}</td>
+            
+            </tr>`
+
             console.log("dpi : "+ x.dpi)
             console.log("nombre_autor : "+ x.nombre_autor)
             console.log("correo : "+ x.correo)
@@ -220,7 +238,7 @@ class Arbol_Binario{
     
          
 }
-
+/** 
 var arbol_binario = new Arbol_Binario()
 
 arbol_binario.agregar(3109604185386,"Snider Underwood","sniderunderwood@zytrac.com","895 Barbey Street, Dixonville, Alabama, 580","+502 (983) 563-3560","Esse irure ex tempor occaecat magna incididunt. Exercitation dolore labore dolore magna nisi ullamco nulla. Do tempor commodo et velit officia deserunt.\r\n")
@@ -229,7 +247,7 @@ arbol_binario.agregar(3109604185386,"yes Underwood","sniderunderwood@zytrac.com"
 arbol_binario.agregar(3109604185386,"as Underwood","sniderunderwood@zytrac.com","895 Barbey Street, Dixonville, Alabama, 580","+502 (983) 563-3560","Esse irure ex tempor occaecat magna incididunt. Exercitation dolore labore dolore magna nisi ullamco nulla. Do tempor commodo et velit officia deserunt.\r\n")
 arbol_binario.agregar(3109604185386,"tl Underwood","sniderunderwood@zytrac.com","895 Barbey Street, Dixonville, Alabama, 580","+502 (983) 563-3560","Esse irure ex tempor occaecat magna incididunt. Exercitation dolore labore dolore magna nisi ullamco nulla. Do tempor commodo et velit officia deserunt.\r\n")
 arbol_binario.agregar(3109604185386,"s Underwood","sniderunderwood@zytrac.com","895 Barbey Street, Dixonville, Alabama, 580","+502 (983) 563-3560","Esse irure ex tempor occaecat magna incididunt. Exercitation dolore labore dolore magna nisi ullamco nulla. Do tempor commodo et velit officia deserunt.\r\n")
-
+*/
 
 
 //console.log("Metodo preorden:\n")

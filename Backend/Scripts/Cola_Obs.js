@@ -79,6 +79,27 @@ class Cola_Obs {
             .renderDot(codigodot)
     }
 
+    subgra(_NodoPadre, _NumPadre) {
+        var nodos = ""
+        var num = 1
+        if (this.first != null) {
+            var aux = this.first
+            nodos += "N" + _NumPadre + " -> NN" + (_NodoPadre + num) + ";\n"
+            while (aux != null) {
+                nodos += "NN" + (_NodoPadre + num) + "[label=\"" + aux.value + "\"];\n"
+
+                if (aux.next != null) {
+                    nodos += "NN" + (_NodoPadre + num) + " -> NN" + (_NodoPadre + num + 1) + ";\n"
+                }
+                aux = aux.next
+
+                num++;
+            }
+        }
+        return nodos
+    }
+
+
     bubbleSort() {
         var aux= this.first
         for (var i = 0; i < this.size; i++) { 
